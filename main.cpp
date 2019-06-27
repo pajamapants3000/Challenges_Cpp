@@ -3,6 +3,7 @@
 #include "solution.h"       // abstract base class for all challenge solutions
 /* Challenge solutions */
 #include "vowelsquare.h"
+#include "palindromenumber.h"
 /* ******************* */
 
 /* Specify which challege solution to test here by default */
@@ -14,8 +15,8 @@ constexpr int inputMaxChar { 65536 };
 /* ******************** */
 
 /* Forward Declarations */
-Solution* getSolverForChallenge(Challenge challenge, std::string input = nullptr);
 Challenge getChallengeFromString(std::string challenge);
+Solution* getSolverForChallenge(Challenge challenge, std::string input = nullptr);
 std::string getSolution(std::string input, Challenge challenge = todaysChallenge);
 /* ******************** */
 
@@ -33,17 +34,6 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-Solution* getSolverForChallenge(Challenge challenge, std::string input)
-{
-    switch (challenge)
-    {
-    case Challenge::VowelSquare:
-        return new VowelSquare(input);
-    default:
-        return nullptr;
-    }
-}
-
 Challenge getChallengeFromString(std::string challenge)
 {
     std::locale loc;
@@ -53,8 +43,23 @@ Challenge getChallengeFromString(std::string challenge)
 
     if (challenge == "vowelsquare") {
         return Challenge::VowelSquare;
+    } else if (challenge == "palindromenumber") {
+        return Challenge::PalindromeNumber;
     } else {
         return Challenge::Unspecified;
+    }
+}
+
+Solution* getSolverForChallenge(Challenge challenge, std::string input)
+{
+    switch (challenge)
+    {
+    case Challenge::VowelSquare:
+        return new VowelSquare(input);
+    case Challenge::PalindromeNumber:
+        return new PalindromeNumber(input);
+    default:
+        return nullptr;
     }
 }
 

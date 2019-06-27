@@ -7,10 +7,11 @@
 #include "solution.h"       // abstract base class for all challenge solutions
 /* Challenge solutions */
 #include "vowelsquare.h"
+#include "palindromenumber.h"
 /* ******************* */
 
 /* Specify which challege solution to test here */
-static const Challenge todaysChallenge { Challenge::VowelSquare };
+static const Challenge todaysChallenge { Challenge::PalindromeNumber };
 /* ******************************************** */
 
 /* Additional Constants */
@@ -62,6 +63,8 @@ Challenge getChallengeFromString(std::string challenge)
 
     if (challenge == "vowelsquare") {
         return Challenge::VowelSquare;
+    } else if (challenge == "palindromenumber") {
+        return Challenge::PalindromeNumber;
     } else {
         return Challenge::Unspecified;
     }
@@ -77,6 +80,8 @@ Solution* getSolverForChallenge(Challenge challenge)
     {
     case Challenge::VowelSquare:
         return new VowelSquare();
+    case Challenge::PalindromeNumber:
+        return new PalindromeNumber();
     default:
         return nullptr;
     }

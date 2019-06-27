@@ -18,7 +18,7 @@ VowelSquare::VowelSquare(std::string input) : Solution()
     setInput(input);
 }
 
-VowelSquare::~VowelSquare() { }
+VowelSquare::~VowelSquare(){}
 
 std::vector<std::tuple<std::string, std::string>> VowelSquare::testCases() const
 {

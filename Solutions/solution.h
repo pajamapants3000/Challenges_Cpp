@@ -18,6 +18,7 @@ enum class Challenge
 {
     Unspecified,
     VowelSquare,
+    PalindromeNumber,
     MAX_CHALENGE,
 };
 
@@ -28,10 +29,9 @@ protected:
     std::string rawInput;
 
 public:
-    virtual ~Solution() = 0;
+    virtual ~Solution(){};
     virtual std::string getSolution() const = 0;
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const = 0;
     virtual void setInput(std::string input) { rawInput = input; }
 };
-Solution::~Solution(){}
 #endif // SOLUTION_H
