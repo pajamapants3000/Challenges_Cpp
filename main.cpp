@@ -4,6 +4,7 @@
 /* Challenge solutions */
 #include "vowelsquare.h"
 #include "palindromenumber.h"
+#include "addtwonumbers.h"
 /* ******************* */
 
 /* Specify which challege solution to test here by default */
@@ -45,6 +46,8 @@ Challenge getChallengeFromString(std::string challenge)
         return Challenge::VowelSquare;
     } else if (challenge == "palindromenumber") {
         return Challenge::PalindromeNumber;
+    } else if (challenge == "addtwonumbers") {
+        return Challenge::AddTwoNumbers;
     } else {
         return Challenge::Unspecified;
     }
@@ -58,6 +61,8 @@ Solution* getSolverForChallenge(Challenge challenge, std::string input)
         return new VowelSquare(input);
     case Challenge::PalindromeNumber:
         return new PalindromeNumber(input);
+    case Challenge::AddTwoNumbers:
+        return new AddTwoNumbers(input);
     default:
         return nullptr;
     }

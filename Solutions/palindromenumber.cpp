@@ -1,6 +1,8 @@
 #include "palindromenumber.h"
 
+#include <iostream>
 #include <string>
+#include <stdexcept>
 
 PalindromeNumber::PalindromeNumber(bool useNumericSolution) :
     Solution(),
@@ -36,7 +38,16 @@ std::vector<std::tuple<std::string, std::string>> PalindromeNumber::testCases() 
 void PalindromeNumber::setInput(std::string input)
 {
     rawInput = input;
-    number = std::stoll(input); // throws exception on fail; see http://www.cplusplus.com/reference/string/stoll/
+
+    try {
+        number = std::stoll(input); // throws exception on fail; see http://www.cplusplus.com/reference/string/stoll/
+    } catch (const std::invalid_argument& ia) {
+        std::cerr << "PalindromeNumber: Invalid input: " << ia.what() << "\n";
+        throw;
+    } catch (const std::out_of_range& oor) {
+        std::cerr << "PalindromeNumber: Input out of range: " << oor.what() << "\n";
+        throw;
+    }
 }
 
 std::string PalindromeNumber::getStringSolution() const
@@ -56,11 +67,11 @@ std::string PalindromeNumber::getNumericSolution() const
 
     std::int64_t workingNumber { number };
 
-    std::vector<int> digits { static_cast<int>(workingNumber % 10) };
+    std::vector<int> digits{};
 
     while (workingNumber) {
+        digits.insert(digits.begin(), workingNumber % 10);
         workingNumber /= 10;
-        digits.push_back(workingNumber % 10);
     }
 
     for (std::vector<int>::size_type i{0}; i < digits.size(); ++i) {

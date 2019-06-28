@@ -19,6 +19,7 @@ enum class Challenge
     Unspecified,
     VowelSquare,
     PalindromeNumber,
+    AddTwoNumbers,
     MAX_CHALENGE,
 };
 
