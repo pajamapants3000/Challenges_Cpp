@@ -9,10 +9,11 @@
 #include "vowelsquare.h"
 #include "palindromenumber.h"
 #include "addtwonumbers.h"
+#include "closestenemy.h"
 /* ******************* */
 
 /* Specify which challege solution to test here */
-static const Challenge todaysChallenge { Challenge::AddTwoNumbers };
+static const Challenge todaysChallenge { Challenge::ClosestEnemy };
 /* ******************************************** */
 
 /* Additional Constants */
@@ -68,6 +69,8 @@ Challenge getChallengeFromString(std::string challenge)
         return Challenge::PalindromeNumber;
     } else if (challenge == "addtwonumbers") {
         return Challenge::AddTwoNumbers;
+    } else if (challenge == "closestenemy") {
+        return Challenge::ClosestEnemy;
     } else {
         return Challenge::Unspecified;
     }
@@ -87,6 +90,8 @@ Solution* getSolverForChallenge(Challenge challenge)
         return new PalindromeNumber();
     case Challenge::AddTwoNumbers:
         return new AddTwoNumbers();
+    case Challenge::ClosestEnemy:
+        return new ClosestEnemy();
     default:
         return nullptr;
     }

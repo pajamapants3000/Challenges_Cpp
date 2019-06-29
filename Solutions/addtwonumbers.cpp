@@ -72,7 +72,7 @@ void AddTwoNumbers::setInput(std::string input)
 {
     clearData();
 
-    std::vector<int> numbers = extractNumbers(input);
+    std::vector<int> numbers = extractIntegers(input);
     inputNumbers.push_back(convertNumToLL(numbers.at(0)));
     inputNumbers.push_back(convertNumToLL(numbers.at(1)));
 
@@ -104,34 +104,6 @@ AddTwoNumbers::ListNode* AddTwoNumbers::convertNumToLL(int num)
         llptr->next = new ListNode(working % 10);
         llptr = llptr->next;
         working /= 10;
-    }
-
-    return result;
-}
-
-std::vector<int> AddTwoNumbers::extractNumbers(const std::string &input)
-{
-    std::vector<int> result{};
-    int num{0};
-    std::string::size_type pos {0};
-
-    try {
-        num = std::stoi(input.substr(pos), &pos, 0); // stoi throws exception on fail; see http://www.cplusplus.com/reference/string/stoll/
-        result.push_back(num);
-        num = std::stoi(input.substr(pos), &pos, 0); // stoi throws exception on fail; see http://www.cplusplus.com/reference/string/stoll/
-        result.push_back(num);
-    } catch (const std::invalid_argument& ia) {
-        std::cerr << "AddTwoNumbers: Invalid input: " << ia.what() << "\n";
-        exit(1);
-    } catch (const std::out_of_range& oor) {
-        std::cerr << "AddTwoNumbers: Input out of range: " << oor.what() << "\n";
-        exit(1);
-    } catch (const std::exception& ex) {
-        std::cerr << "AddTwoNumbers: " << ex.what() << "\n";
-        exit(1);
-    } catch (...) {
-        std::cerr << "AddTwoNumbers: Failed to parse number from input.\n";
-        exit(1);
     }
 
     return result;

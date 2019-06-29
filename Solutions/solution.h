@@ -32,8 +32,15 @@ protected:
 
 public:
     virtual ~Solution(){};
+    virtual void setInput(std::string input) { rawInput = input; }
     virtual std::string getSolution() const = 0;
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const = 0;
-    virtual void setInput(std::string input) { rawInput = input; }
+
+protected:
+    static std::vector<int> extractIntegers(const std::string &input, const std::string &caller = std::string());
+    static std::vector<std::string> extractStrings(const std::string &input, const std::string &caller = std::string());
+    static std::vector<std::vector<int>> extractIntMatrix(const std::string &input, const std::string &caller = std::string());
+    static std::vector<std::vector<char>> extractCharMatrix(const std::string &input, const std::string &caller = std::string());
 };
+
 #endif // SOLUTION_H

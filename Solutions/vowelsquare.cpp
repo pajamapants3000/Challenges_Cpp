@@ -28,7 +28,8 @@ std::vector<std::tuple<std::string, std::string>> VowelSquare::testCases() const
 void VowelSquare::setInput(std::string input)
 {
     rawInput = input;
-    matrix = extractInput(input);
+    //matrix = extractInput(input);
+    matrix = extractStrings(input, "VowelSquare");
 }
 
 std::string VowelSquare::getSolution() const
