@@ -20,6 +20,7 @@ enum class Challenge
     VowelSquare,
     PalindromeNumber,
     AddTwoNumbers,
+    ClosestEnemy,
     MAX_CHALENGE,
 };
 

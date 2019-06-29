@@ -23,19 +23,6 @@ AddTwoNumbers::~AddTwoNumbers()
     clearData();
 }
 
-void AddTwoNumbers::clearData()
-{
-    for (ListNode *ll : inputNumbers) {
-        while (ll) {
-            ListNode* next = ll->next;
-            delete ll;
-            ll = next;
-        }
-    }
-
-    inputNumbers.clear();
-}
-
 std::string AddTwoNumbers::getSolution() const
 {
     bool carryTheOne{false};
@@ -47,8 +34,8 @@ std::string AddTwoNumbers::getSolution() const
     int tempNumber;
     while (one && two) {
         tempNumber = one->val + two->val + (carryTheOne ? 1 : 0);
-        carryTheOne = (tempNumber % 10);
-        result = std::to_string(tempNumber) + result;
+        carryTheOne = (tempNumber / 10);
+        result = std::to_string(tempNumber % 10) + result;
 
         one = one->next;
         two = two->next;
@@ -56,18 +43,21 @@ std::string AddTwoNumbers::getSolution() const
 
     while (one) {
         tempNumber = one->val + (carryTheOne ? 1 : 0);
-        carryTheOne = (tempNumber % 10);
-        result = std::to_string(tempNumber) + result;
+        carryTheOne = (tempNumber / 10);
+        result = std::to_string(tempNumber % 10) + result;
 
         one = one->next;
     }
 
     while (two) {
         tempNumber = two->val + (carryTheOne ? 1 : 0);
-        carryTheOne = (tempNumber % 10);
-        result = std::to_string(tempNumber) + result;
+        carryTheOne = (tempNumber / 10);
+        result = std::to_string(tempNumber % 10) + result;
 
         two = two->next;
+    }
+    if (carryTheOne) {
+        result = '1' + result;
     }
 
     return result;
@@ -89,16 +79,31 @@ void AddTwoNumbers::setInput(std::string input)
     numbers.clear();
 }
 
+void AddTwoNumbers::clearData()
+{
+    for (ListNode *ll : inputNumbers) {
+        while (ll) {
+            ListNode* next = ll->next;
+            delete ll;
+            ll = next;
+        }
+    }
+
+    inputNumbers.clear();
+}
+
 AddTwoNumbers::ListNode* AddTwoNumbers::convertNumToLL(int num)
 {
     int working {num};
 
     ListNode *result { new ListNode(working % 10) };
+    working /= 10;
+
     ListNode *llptr = result;
     while (working) {
-        working /= 10;
         llptr->next = new ListNode(working % 10);
         llptr = llptr->next;
+        working /= 10;
     }
 
     return result;
@@ -116,16 +121,16 @@ std::vector<int> AddTwoNumbers::extractNumbers(const std::string &input)
         num = std::stoi(input.substr(pos), &pos, 0); // stoi throws exception on fail; see http://www.cplusplus.com/reference/string/stoll/
         result.push_back(num);
     } catch (const std::invalid_argument& ia) {
-        std::cerr << "PalindromeNumber: Invalid input: " << ia.what() << "\n";
+        std::cerr << "AddTwoNumbers: Invalid input: " << ia.what() << "\n";
         exit(1);
     } catch (const std::out_of_range& oor) {
-        std::cerr << "PalindromeNumber: Input out of range: " << oor.what() << "\n";
+        std::cerr << "AddTwoNumbers: Input out of range: " << oor.what() << "\n";
         exit(1);
     } catch (const std::exception& ex) {
-        std::cerr << "PalindromeNumber: " << ex.what() << "\n";
+        std::cerr << "AddTwoNumbers: " << ex.what() << "\n";
         exit(1);
     } catch (...) {
-        std::cerr << "PalindromeNumber: Failed to parse number from input.\n";
+        std::cerr << "AddTwoNumbers: Failed to parse number from input.\n";
         exit(1);
     }
 
