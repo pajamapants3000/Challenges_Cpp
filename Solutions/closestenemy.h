@@ -1,5 +1,5 @@
 /*
-Challenge
+Challenge - Closest Enemy II - https://coderbyte.com/information/Closest%20Enemy%20II
 Have the function ClosestEnemyII(strArr) read the matrix of numbers stored in strArr which will be
 a 2D matrix that contains only the integers 1, 0, or 2. Then from the position in the matrix where
 a 1 is, return the number of spaces either left, right, down, or up you must move to reach an enemy

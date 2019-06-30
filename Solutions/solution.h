@@ -21,6 +21,7 @@ enum class Challenge
     PalindromeNumber,
     AddTwoNumbers,
     ClosestEnemy,
+    LastStoneWeight,
     MAX_CHALENGE,
 };
 

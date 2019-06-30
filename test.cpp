@@ -10,6 +10,7 @@
 #include "palindromenumber.h"
 #include "addtwonumbers.h"
 #include "closestenemy.h"
+#include "laststoneweight.h"
 /* ******************* */
 
 /* Specify which challege solution to test here */
@@ -71,6 +72,8 @@ Challenge getChallengeFromString(std::string challenge)
         return Challenge::AddTwoNumbers;
     } else if (challenge == "closestenemy") {
         return Challenge::ClosestEnemy;
+    } else if (challenge == "laststoneweight") {
+        return Challenge::LastStoneWeight;
     } else {
         return Challenge::Unspecified;
     }
@@ -92,6 +95,8 @@ Solution* getSolverForChallenge(Challenge challenge)
         return new AddTwoNumbers();
     case Challenge::ClosestEnemy:
         return new ClosestEnemy();
+    case Challenge::LastStoneWeight:
+        return new LastStoneWeight();
     default:
         return nullptr;
     }
