@@ -11,7 +11,7 @@
 LastStoneWeight::LastStoneWeight() :
     Solution(),
     rockWeights{},
-    useHomemadeSort {false}
+    useHomemadeSort {true}
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
@@ -19,7 +19,7 @@ LastStoneWeight::LastStoneWeight() :
 LastStoneWeight::LastStoneWeight(std::string input) :
     Solution(),
     rockWeights{},
-    useHomemadeSort {false}
+    useHomemadeSort {true}
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     setInput(input);
@@ -36,8 +36,11 @@ void LastStoneWeight::setInput(const std::string input)
 {
     rawInput = input;
     rockWeights = parseRockWeights(input);
-    //sortRockWeights(rockWeights);
-    std::sort(rockWeights.begin(), rockWeights.end(), [](int p, int q) { return p < q; });
+    if (useHomemadeSort) {
+        sortRockWeights(rockWeights.begin(), rockWeights.end());
+    } else {
+        std::sort(rockWeights.begin(), rockWeights.end(), [](int p, int q) { return p < q; });
+    }
 }
 
 std::string LastStoneWeight::getSolution() const
@@ -120,7 +123,8 @@ std::vector<int>::iterator LastStoneWeight::partition(std::vector<int>::iterator
     std::vector<int>::iterator loScan { lo };
     std::vector<int>::iterator hiScan { hi };
 
-    std::iter_swap(loScan, p);
+    std::iter_swap(lo, p);
+    p = lo;
 
     while (loScan < hiScan) {
         while (comparator(*(++loScan), *p)) { if (loScan == hi) break; }
