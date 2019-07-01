@@ -53,9 +53,9 @@ public:
     explicit ClosestEnemy(std::string input);
     virtual ~ClosestEnemy() override;
 
-    virtual void setInput(std::string input) override;
-    virtual std::string getSolution() const override;
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const override;
+    virtual void setInput(const std::string input) override;
+    virtual std::string getSolution() const override;
 
     matrix_t matrix;
 private:

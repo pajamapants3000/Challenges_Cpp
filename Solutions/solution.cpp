@@ -46,24 +46,16 @@ std::vector<std::string> Solution::extractStrings(const std::string &input, cons
     std::vector<std::string> result {};
 
     std::string::const_iterator citer { input.cbegin() };
+    std::string::const_iterator next { nullptr };
     std::string::const_iterator end { input.cend() };
-    std::string::size_type pos {0};
-    std::string::size_type nextPos {0};
-    long distance {0};
 
     while (citer != end) {
-        citer = std::find_if(citer, end, [](const char c){ return isspace(c) || (c == ','); });
+        next = std::find_if(citer, end, [](const char c){ return isspace(c) || (c == ','); });
 
-        distance = std::distance(input.cbegin(), citer);
-        if (distance < 0) {     // ensure absolute value
-            distance *= -1;
-        }
-        nextPos = static_cast<std::string::size_type>(distance);
+        result.push_back(std::string { citer, next });
+        citer = next;
 
-        result.push_back(input.substr(pos, nextPos - pos));
-
-        while (isspace(*citer) || (*citer == ',')) { ++citer; ++nextPos; }
-        pos = nextPos;
+        while (isspace(*citer) || (*citer == ',')) { ++citer; }
     }
 
     return result;

@@ -23,7 +23,12 @@ ClosestEnemy::ClosestEnemy(std::string input) :
 
 ClosestEnemy::~ClosestEnemy(){}
 
-void ClosestEnemy::setInput(std::string input)
+std::vector<std::tuple<std::string, std::string>> ClosestEnemy::testCases() const
+{
+    return {{ "000 100 200", "1"}, { "0000 2010 0000 2002", "2"}, { "0000100 0000000 0000000 0200000 0000000 0000000 0000020", "2"}};
+}
+
+void ClosestEnemy::setInput(const std::string input)
 {
     matrix = extractIntMatrix(input, "ClosestEnemy");
     findSelf();
@@ -116,10 +121,5 @@ bool ClosestEnemy::isEnemyOnDiagonal(size_t distance, Corner corner) const
     }
 
     return false;
-}
-
-std::vector<std::tuple<std::string, std::string>> ClosestEnemy::testCases() const
-{
-    return {{ "000 100 200", "1"}, { "0000 2010 0000 2002", "2"}, { "0000100 0000000 0000000 0200000 0000000 0000000 0000020", "2"}};
 }
 

@@ -33,9 +33,9 @@ public:
     explicit AddTwoNumbers(std::string input);
     virtual ~AddTwoNumbers() override;
 
-    virtual std::string getSolution() const override;
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const override;
-    virtual void setInput(std::string input) override;
+    virtual void setInput(const std::string input) override;
+    virtual std::string getSolution() const override;
 
     std::vector<ListNode*> inputNumbers;
 

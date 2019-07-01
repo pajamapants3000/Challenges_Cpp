@@ -21,21 +21,12 @@ PalindromeNumber::PalindromeNumber(std::string input, bool useNumericSolution) :
 
 PalindromeNumber::~PalindromeNumber(){}
 
-std::string PalindromeNumber::getSolution() const
-{
-    if (useNumericSolution) {
-        return getNumericSolution();
-    } else {
-        return getStringSolution();
-    }
-}
-
 std::vector<std::tuple<std::string, std::string>> PalindromeNumber::testCases() const
 {
     return {{ "121", "true"}, { "-121", "false"}, { "10", "false"}};
 }
 
-void PalindromeNumber::setInput(std::string input)
+void PalindromeNumber::setInput(const std::string input)
 {
     rawInput = input;
 
@@ -47,6 +38,15 @@ void PalindromeNumber::setInput(std::string input)
     } catch (const std::out_of_range& oor) {
         std::cerr << "PalindromeNumber: Input out of range: " << oor.what() << "\n";
         throw;
+    }
+}
+
+std::string PalindromeNumber::getSolution() const
+{
+    if (useNumericSolution) {
+        return getNumericSolution();
+    } else {
+        return getStringSolution();
     }
 }
 

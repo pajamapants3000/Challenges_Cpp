@@ -14,7 +14,7 @@
 /* ******************* */
 
 /* Specify which challege solution to test here */
-static const Challenge todaysChallenge { Challenge::ClosestEnemy };
+static const Challenge todaysChallenge { Challenge::LastStoneWeight };
 /* ******************************************** */
 
 /* Additional Constants */

@@ -40,9 +40,9 @@ public:
     explicit VowelSquare(std::string input);
     virtual ~VowelSquare() override;
 
-    virtual std::string getSolution() const override;
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const override;
-    virtual void setInput(std::string input) override;
+    virtual void setInput(const std::string input) override;
+    virtual std::string getSolution() const override;
 
 private:
     std::vector<std::string> extractInput(std::string &input);

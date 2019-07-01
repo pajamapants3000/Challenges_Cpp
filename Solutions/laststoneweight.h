@@ -45,22 +45,23 @@ class LastStoneWeight : public Solution
 public:
     LastStoneWeight();
     explicit LastStoneWeight(std::string input);
-    ~LastStoneWeight();
+    virtual ~LastStoneWeight() override;
 
-    virtual std::string getSolution() const override;
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const override;
-    virtual void setInput(std::string input) override;
+    virtual void setInput(const std::string input) override;
+    virtual std::string getSolution() const override;
 
 private:
-    std::vector<int> parseRockWeights(std::string input);
+    std::vector<int> parseRockWeights(const std::string input);
+    std::vector<int> smashRocks(std::vector<int> &weights) const;
     void sortRockWeights(std::vector<int>::iterator lo,
                          std::vector<int>::iterator hi) const;
     std::vector<int>::iterator partition(std::vector<int>::iterator lo,
                                          std::vector<int>::iterator hi) const;
-    bool comparator(std::vector<int>::iterator lo,
-                    std::vector<int>::iterator hi) const;
+    int pop(std::vector<int> &weights) const;
+    void insert(std::vector<int> &weights, const int newWeight) const;
+    bool comparator(int lo, int hi) const;
     std::vector<int>::size_type getRandomWeightIndex(std::vector<int>::size_type size) const;
-    std::vector<int> smashRocks(std::vector<int> &weights) const;
 
     std::vector<int> rockWeights;
     bool useHomemadeSort;

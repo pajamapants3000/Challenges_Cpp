@@ -1,12 +1,12 @@
 #include "laststoneweight.h"
 
-#include <algorithm>
-#include <bits/stdc++.h>
-#include <cstdlib>
-#include <ctime>
 #include <string>
+#include <iostream>
 #include <tuple>
 #include <vector>
+#include <algorithm>    // sort
+#include <cstdlib>      // rand, srand
+#include <ctime>        // get time for srand seed value
 
 LastStoneWeight::LastStoneWeight() :
     Solution(),
@@ -27,6 +27,19 @@ LastStoneWeight::LastStoneWeight(std::string input) :
 
 LastStoneWeight::~LastStoneWeight(){}
 
+std::vector<std::tuple<std::string, std::string>> LastStoneWeight::testCases() const
+{
+    return {{ "2 7 4 1 8 1", "1"}, { "24 182 17 2 33 13 98 11", "6"}, { "421 873 37 122 293", "0"}};
+}
+
+void LastStoneWeight::setInput(const std::string input)
+{
+    rawInput = input;
+    rockWeights = parseRockWeights(input);
+    //sortRockWeights(rockWeights);
+    std::sort(rockWeights.begin(), rockWeights.end(), [](int p, int q) { return p < q; });
+}
+
 std::string LastStoneWeight::getSolution() const
 {
     std::vector<int> weights { rockWeights };
@@ -41,25 +54,44 @@ std::string LastStoneWeight::getSolution() const
     return "0";
 }
 
-std::vector<std::tuple<std::string, std::string>> LastStoneWeight::testCases() const
+std::vector<int> LastStoneWeight::parseRockWeights(const std::string input)
 {
-    return {{ "", ""}, { "", ""}, { "", ""}};
-}
+    std::vector<int> result {};
+    std::string::size_type pos {0};
+    std::string::size_type posNext {0};
+    int num {0};
 
-void LastStoneWeight::setInput(std::string input)
-{
-    rawInput = input;
-    rockWeights = parseRockWeights(input);
-    //sortRockWeights(rockWeights);
-    std::sort(rockWeights.begin(), rockWeights.end(), [](int p, int q) { return q < p; });
-}
+    try {
+        while (pos != input.length()) {
+            num = std::stoi(input.substr(pos), &posNext, 0);
+            pos += posNext;
+            result.push_back(num);
+        }
+    } catch (std::invalid_argument &ia) {
+        std::cerr << "LastStoneWeight::parseRockWeights - invalid input.\n" << ia.what();
+        exit(1);
+    } catch (std::out_of_range &oor) {
+        std::cerr << "LastStoneWeight::parseRockWeights - out of range.\n" << oor.what();
+        exit(1);
+    } catch (...) {
+        std::cerr << "LastStoneWeight::parseRockWeights - unknown exception.\n";
+        exit(1);
+    }
 
-std::vector<int> LastStoneWeight::parseRockWeights(std::string input)
-{
+    return result;
 }
 
 std::vector<int> LastStoneWeight::smashRocks(std::vector<int> &weights) const
 {
+    // weights must be sorted ascending!
+    int m1 { pop(weights) };
+    int m2 { pop(weights) };
+    int smash { m1 - m2 };
+    if (smash != 0) {
+        insert(weights, smash);
+    }
+
+    return weights;
 }
 
 void LastStoneWeight::sortRockWeights(std::vector<int>::iterator lo,
@@ -91,8 +123,8 @@ std::vector<int>::iterator LastStoneWeight::partition(std::vector<int>::iterator
     std::iter_swap(loScan, p);
 
     while (loScan < hiScan) {
-        while (comparator(++loScan, p)) { if (loScan == hi) break; }
-        while (comparator(p, --hiScan)) { if (hiScan == lo) break; }
+        while (comparator(*(++loScan), *p)) { if (loScan == hi) break; }
+        while (comparator(*p, *(--hiScan))) { if (hiScan == lo) break; }
         if (std::distance(loScan, hiScan) <= 0) break;
         std::iter_swap(loScan, hiScan);
     }
@@ -101,10 +133,25 @@ std::vector<int>::iterator LastStoneWeight::partition(std::vector<int>::iterator
     return hiScan;
 }
 
-bool LastStoneWeight::comparator(std::vector<int>::iterator lo,
-                                 std::vector<int>::iterator hi) const
+int LastStoneWeight::pop(std::vector<int> &weights) const
 {
-    return *lo > *hi;
+    int result { *(weights.end() - 1) };
+    weights.pop_back();
+    return result;
+}
+
+void LastStoneWeight::insert(std::vector<int> &weights, const int newWeight) const
+{
+    std::vector<int>::const_iterator citer { weights.cbegin() };
+    std::vector<int>::const_iterator last { weights.cend() };
+    citer = std::find_if(citer, last, [&](const int wt){ return comparator(newWeight, wt); } );
+    weights.insert(citer, newWeight);
+}
+
+// ascending order
+bool LastStoneWeight::comparator(const int lo, const int hi) const
+{
+    return lo < hi;
 }
 
 std::vector<int>::size_type LastStoneWeight::getRandomWeightIndex(std::vector<int>::size_type size) const

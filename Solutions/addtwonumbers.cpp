@@ -23,6 +23,22 @@ AddTwoNumbers::~AddTwoNumbers()
     clearData();
 }
 
+std::vector<std::tuple<std::string, std::string>> AddTwoNumbers::testCases() const
+{
+    return {{ "342 465", "807"}, { "239478 987238", "1226716"}, { "8723 12", "8735"}};
+}
+
+void AddTwoNumbers::setInput(const std::string input)
+{
+    clearData();
+
+    std::vector<int> numbers = extractIntegers(input);
+    inputNumbers.push_back(convertNumToLL(numbers.at(0)));
+    inputNumbers.push_back(convertNumToLL(numbers.at(1)));
+
+    numbers.clear();
+}
+
 std::string AddTwoNumbers::getSolution() const
 {
     bool carryTheOne{false};
@@ -61,22 +77,6 @@ std::string AddTwoNumbers::getSolution() const
     }
 
     return result;
-}
-
-std::vector<std::tuple<std::string, std::string>> AddTwoNumbers::testCases() const
-{
-    return {{ "342 465", "807"}, { "239478 987238", "1226716"}, { "8723 12", "8735"}};
-}
-
-void AddTwoNumbers::setInput(std::string input)
-{
-    clearData();
-
-    std::vector<int> numbers = extractIntegers(input);
-    inputNumbers.push_back(convertNumToLL(numbers.at(0)));
-    inputNumbers.push_back(convertNumToLL(numbers.at(1)));
-
-    numbers.clear();
 }
 
 void AddTwoNumbers::clearData()

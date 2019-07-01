@@ -29,13 +29,15 @@ class Solution
 {
 protected:
     Solution(){}
+
     std::string rawInput;
 
 public:
     virtual ~Solution(){};
-    virtual void setInput(std::string input) { rawInput = input; }
-    virtual std::string getSolution() const = 0;
+
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const = 0;
+    virtual void setInput(const std::string input) { rawInput = input; }
+    virtual std::string getSolution() const = 0;
 
 protected:
     static std::vector<int> extractIntegers(const std::string &input, const std::string &caller = std::string());

@@ -25,7 +25,7 @@ std::vector<std::tuple<std::string, std::string>> VowelSquare::testCases() const
     return {{ "aaaa, aaaa, aaaa", "0-0"}, { "aqrst, ukaei, ffooo", "1-2"}, { "gg, ff", "not found"}};
 };
 
-void VowelSquare::setInput(std::string input)
+void VowelSquare::setInput(const std::string input)
 {
     rawInput = input;
     //matrix = extractInput(input);
