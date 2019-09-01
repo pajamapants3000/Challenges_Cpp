@@ -17,11 +17,14 @@
 enum class Challenge
 {
     Unspecified,
+    StringSort,
     VowelSquare,
     PalindromeNumber,
     AddTwoNumbers,
     ClosestEnemy,
     LastStoneWeight,
+    IsUnique,
+    ArePermutations,
     MAX_CHALENGE,
 };
 
