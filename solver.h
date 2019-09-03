@@ -7,7 +7,7 @@
 #include <tuple>
 
 /* Specify which challege solution to test here */
-static const Challenge todaysChallenge { Challenge::ArePermutations };
+static const Challenge todaysChallenge { Challenge::Urlify };
 /* ******************************************** */
 
 /* Additional Constants */

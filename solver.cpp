@@ -16,6 +16,7 @@
 #include "Solutions/stringsort.h"
 #include "Solutions/isunique.h"
 #include "Solutions/arepermutations.h"
+#include "Solutions/urlify.h"
 /* ******************* */
 
 Solver::Solver(const Challenge challenge) :
@@ -86,6 +87,8 @@ Challenge Solver::getChallengeFromString(const std::string input)
         return Challenge::IsUnique;
     } else if (input == "arepermutations") {
         return Challenge::ArePermutations;
+    } else if (input == "urlify") {
+        return Challenge::Urlify;
     } else {
         return Challenge::Unspecified;
     }
@@ -113,6 +116,8 @@ Solution* Solver::getSolverForChallenge(const Challenge challenge)
         return new IsUnique();
     case Challenge::ArePermutations:
         return new ArePermutations();
+    case Challenge::Urlify:
+        return new Urlify();
     default:
         return nullptr;
     }
@@ -140,6 +145,8 @@ Solution* Solver::getSolverForChallenge(const std::string input, const Challenge
         return new IsUnique(input);
     case Challenge::ArePermutations:
         return new ArePermutations(input);
+    case Challenge::Urlify:
+        return new Urlify(input);
     default:
         return nullptr;
     }

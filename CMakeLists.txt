@@ -33,4 +33,6 @@ target_link_libraries(${PROJECT_NAME} isunique)
 target_link_libraries(${PROJECT_NAME}_TEST isunique)
 target_link_libraries(${PROJECT_NAME} arepermutations)
 target_link_libraries(${PROJECT_NAME}_TEST arepermutations)
+target_link_libraries(${PROJECT_NAME} urlify)
+target_link_libraries(${PROJECT_NAME}_TEST urlify)
 

@@ -25,6 +25,7 @@ enum class Challenge
     LastStoneWeight,
     IsUnique,
     ArePermutations,
+    Urlify,
     MAX_CHALENGE,
 };
 
