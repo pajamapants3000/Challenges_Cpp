@@ -1,7 +1,11 @@
 #include "solver.h"
 
+#include <iostream>
+
 int main(int argc, char *argv[])
 {
+    std::cout << "Enter input:\n";
+
     char B[inputMaxChar];
     std::string input { fgets(B, inputMaxChar, stdin) };
 
@@ -12,7 +16,9 @@ int main(int argc, char *argv[])
         solver = new Solver();
     }
 
+    std::cout << "Result: ";
     solver->run(input);
+    std::cout << "\n";
 
     return 0;
 }

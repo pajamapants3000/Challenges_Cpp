@@ -7,7 +7,7 @@
 #include <tuple>
 
 /* Specify which challege solution to test here */
-static const Challenge todaysChallenge { Challenge::OneAway };
+static const Challenge todaysChallenge { Challenge::VowelSquare };
 /* ******************************************** */
 
 /* Additional Constants */

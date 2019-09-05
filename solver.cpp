@@ -71,7 +71,7 @@ Challenge Solver::getChallengeFromString(const std::string input)
 {
     std::locale loc;
     for (std::string::size_type i=0; i<input.length(); ++i)
-    std::cout << std::tolower(input[i],loc);
+        std::tolower(input[i],loc);
 
     if (input == "vowelsquare") {
         return Challenge::VowelSquare;
