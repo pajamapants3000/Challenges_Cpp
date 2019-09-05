@@ -26,6 +26,8 @@ enum class Challenge
     IsUnique,
     ArePermutations,
     Urlify,
+    PalindromePermutation,
+    OneAway,
     MAX_CHALENGE,
 };
 

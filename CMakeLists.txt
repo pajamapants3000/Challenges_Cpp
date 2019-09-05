@@ -35,4 +35,8 @@ target_link_libraries(${PROJECT_NAME} arepermutations)
 target_link_libraries(${PROJECT_NAME}_TEST arepermutations)
 target_link_libraries(${PROJECT_NAME} urlify)
 target_link_libraries(${PROJECT_NAME}_TEST urlify)
+target_link_libraries(${PROJECT_NAME} palindromepermutation)
+target_link_libraries(${PROJECT_NAME}_TEST palindromepermutation)
+target_link_libraries(${PROJECT_NAME} oneaway)
+target_link_libraries(${PROJECT_NAME}_TEST oneaway)
 

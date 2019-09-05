@@ -17,6 +17,8 @@
 #include "Solutions/isunique.h"
 #include "Solutions/arepermutations.h"
 #include "Solutions/urlify.h"
+#include "Solutions/palindromepermutation.h"
+#include "Solutions/oneaway.h"
 /* ******************* */
 
 Solver::Solver(const Challenge challenge) :
@@ -89,6 +91,10 @@ Challenge Solver::getChallengeFromString(const std::string input)
         return Challenge::ArePermutations;
     } else if (input == "urlify") {
         return Challenge::Urlify;
+    } else if (input == "palindromepermutation") {
+        return Challenge::PalindromePermutation;
+    } else if (input == "oneaway") {
+        return Challenge::OneAway;
     } else {
         return Challenge::Unspecified;
     }
@@ -118,6 +124,10 @@ Solution* Solver::getSolverForChallenge(const Challenge challenge)
         return new ArePermutations();
     case Challenge::Urlify:
         return new Urlify();
+    case Challenge::PalindromePermutation:
+        return new PalindromePermutation();
+    case Challenge::OneAway:
+        return new OneAway();
     default:
         return nullptr;
     }
@@ -147,6 +157,10 @@ Solution* Solver::getSolverForChallenge(const std::string input, const Challenge
         return new ArePermutations(input);
     case Challenge::Urlify:
         return new Urlify(input);
+    case Challenge::PalindromePermutation:
+        return new PalindromePermutation(input);
+    case Challenge::OneAway:
+        return new OneAway(input);
     default:
         return nullptr;
     }
