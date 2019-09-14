@@ -8,92 +8,58 @@
 #include <vector>
 #include <stdexcept>
 
-// TODO: create unit tests for these!
+static const char* wordCharacters { "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_" };
 
 Solution::Solution() {}
 Solution::~Solution() {}
 
-std::vector<int> Solution::extractIntegers(const std::string &input, const std::string &caller)
-{
-    std::string _caller { caller.empty() ? "Solution" : caller };
+// TODO: create unit tests!
 
-    std::vector<int> result{};
-    int num{0};
-    std::string::size_type pos {0};
+template<> int stringToAny(const std::string &input, std::string::size_type &position) {
+    return std::stoi(input, &position, 10);
+}
 
-    try {
-        while (pos != input.length()) {
-            num = std::stoi(input.substr(pos), &pos, 0); // stoi throws exception on fail; see http://www.cplusplus.com/reference/string/stoll/
-            result.push_back(num);
-        }
-    } catch (const std::invalid_argument& ia) {
-        std::cerr << _caller << ": Invalid input: " << ia.what() << "\n";
-        exit(1);
-    } catch (const std::out_of_range& oor) {
-        std::cerr << _caller << ": Input out of range: " << oor.what() << "\n";
-        exit(1);
-    } catch (const std::exception& ex) {
-        std::cerr << _caller << ": " << ex.what() << "\n";
-        exit(1);
-    } catch (...) {
-        std::cerr << _caller << ": Failed to parse number from input.\n";
-        exit(1);
-    }
+template<> uint stringToAny(const std::string &input, std::string::size_type &position) {
+    return static_cast<uint>(std::stoul(input, &position, 10));
+}
 
+template<> long stringToAny(const std::string &input, std::string::size_type &position) {
+    return std::stol(input, &position, 10);
+}
+
+template<> ulong stringToAny(const std::string &input, std::string::size_type &position) {
+    return std::stoul(input, &position, 10);
+}
+
+template<> float stringToAny(const std::string &input, std::string::size_type &position) {
+    return std::stof(input, &position);
+}
+
+template<> double stringToAny(const std::string &input, std::string::size_type &position) {
+    return std::stod(input, &position);
+}
+
+template<> char stringToAny(const std::string &input, std::string::size_type &position) {
+    position = input.find_first_of(wordCharacters, position);
+    if (position == std::string::npos) return '\0';
+    char result { input.at(position) };
+    ++position;
     return result;
 }
 
-std::vector<std::string> Solution::extractStrings(const std::string &input, const std::string &caller)
-{
-    std::string _caller { caller.empty() ? "Solution" : caller };
-
-    std::vector<std::string> result {};
-
-    std::string::const_iterator citer { input.cbegin() };
-    std::string::const_iterator next { nullptr };
-    std::string::const_iterator end { input.cend() };
-
-    while (citer != end) {
-        next = std::find_if(citer, end, [](const char c){ return isspace(c) || (c == ','); });
-
-        result.push_back(std::string { citer, next });
-        citer = next;
-
-        while (isspace(*citer) || (*citer == ',')) { ++citer; }
-    }
-
+template<> const char* stringToAny(const std::string &input, std::string::size_type &position) {
+    std::string::size_type start { input.find_first_of(wordCharacters) };
+    position = input.find_first_not_of(wordCharacters, start);
+    const char* result { input.substr(start, position-start).c_str() };
+    ++position;
     return result;
 }
 
-std::vector<std::vector<char>> Solution::extractCharMatrix(const std::string &input, const std::string &caller)
-{
-    using row_t = std::vector<char>;
-    using matrix_t = std::vector<row_t>;
-
-    std::string _caller { caller.empty() ? "Solution" : caller };
-    std::vector<std::vector<char>> result {};
-
-    matrix_t::size_type currentRow {0};
-    for (std::string::size_type i {0}; i < input.length(); ++i) {
-        row_t nextRow{};
-        result.push_back(nextRow);
-
-        while (!isspace(input.at(i) && (input.at(i) != ','))) {
-
-            if (!('a' <= input.at(i) && input.at(i) <= 'z') ||
-                ('A' <= input.at(i) && input.at(i) <= 'Z') ||
-                ('0' <= input.at(i) && input.at(i) <= '9')) {
-
-                std::cerr << _caller << ": Invalid input - characters must be alphanumeric.\n";
-                exit(1);
-            }
-
-            result.at(currentRow).push_back(input.at(i));
-            ++i;
-        }
-
-        while (isspace(input.at(i) || (input.at(i) == ','))) { ++i; }
-    }
-
+template<> std::string stringToAny(const std::string &input, std::string::size_type &position) {
+    std::string::size_type start { input.find_first_of(wordCharacters) };
+    position = input.find_first_not_of(wordCharacters, start);
+    std::string result { input.substr(start, position-start) };
+    ++position;
     return result;
 }
+

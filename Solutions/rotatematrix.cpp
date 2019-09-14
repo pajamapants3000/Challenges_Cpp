@@ -1,5 +1,7 @@
 #include "rotatematrix.h"
 
+#include "solution.h"
+
 RotateMatrix::RotateMatrix() :
     Solution(),
     m_M {nullptr},
@@ -33,7 +35,7 @@ std::vector<std::tuple<std::string, std::string>> RotateMatrix::testCases() cons
 
 void RotateMatrix::setInput(const std::string input)
 {
-    Solution::extractIntMatrix(m_M, m_N, input);
+    extractMatrix(m_M, m_N, input);
 }
 
 std::string RotateMatrix::getSolution() const

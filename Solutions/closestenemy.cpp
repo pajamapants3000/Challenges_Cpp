@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <vector>
 
+#include "solution.h"
+
 ClosestEnemy::ClosestEnemy() :
     Solution(),
     matrix{},
@@ -31,7 +33,7 @@ std::vector<std::tuple<std::string, std::string>> ClosestEnemy::testCases() cons
 
 void ClosestEnemy::setInput(const std::string input)
 {
-    matrix = extractIntMatrix<int>(input, "ClosestEnemy");
+    matrix = extractMatrix<int>(input, "ClosestEnemy");
     findSelf();
 }
 

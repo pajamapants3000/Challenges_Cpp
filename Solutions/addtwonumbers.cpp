@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <iostream>
 
+#include "solution.h"
+
 AddTwoNumbers::AddTwoNumbers() :
     Solution(),
     inputNumbers{nullptr}
@@ -32,7 +34,7 @@ void AddTwoNumbers::setInput(const std::string input)
 {
     clearData();
 
-    std::vector<int> numbers = extractIntegers(input);
+    std::vector<int> numbers = extractArray<int>(input);
     inputNumbers.push_back(convertNumToLL(numbers.at(0)));
     inputNumbers.push_back(convertNumToLL(numbers.at(1)));
 

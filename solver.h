@@ -7,7 +7,7 @@
 #include <tuple>
 
 /* Specify which challege solution to test here */
-static const Challenge todaysChallenge { Challenge::RotateMatrix };
+static const Challenge todaysChallenge { Challenge::PalindromePermutation };
 /* ******************************************** */
 
 /* Additional Constants */

@@ -4,21 +4,26 @@
 
 int main(int argc, char *argv[])
 {
-    std::cout << "Enter input:\n";
+    try {
+        std::cout << "Enter input:\n";
 
-    char B[inputMaxChar];
-    std::string input { fgets(B, inputMaxChar, stdin) };
+        char B[inputMaxChar];
+        std::string input { fgets(B, inputMaxChar, stdin) };
 
-    Solver* solver;
-    if (argc > 1) {
-        solver = new Solver(argv[1]);
-    } else {
-        solver = new Solver();
+        Solver* solver;
+        if (argc > 1) {
+            solver = new Solver(argv[1]);
+        } else {
+            solver = new Solver();
+        }
+
+        std::cout << "Result: ";
+        solver->run(input);
+        std::cout << "\n";
+
+    } catch (const char * errorMessage) {
+        std::cout << errorMessage << "\n";
     }
-
-    std::cout << "Result: ";
-    solver->run(input);
-    std::cout << "\n";
 
     return 0;
 }
