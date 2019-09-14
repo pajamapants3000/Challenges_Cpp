@@ -19,6 +19,8 @@
 #include "Solutions/urlify.h"
 #include "Solutions/palindromepermutation.h"
 #include "Solutions/oneaway.h"
+#include "Solutions/compressstring.h"
+#include "Solutions/rotatematrix.h"
 /* ******************* */
 
 Solver::Solver(const Challenge challenge) :
@@ -95,6 +97,10 @@ Challenge Solver::getChallengeFromString(const std::string input)
         return Challenge::PalindromePermutation;
     } else if (input == "oneaway") {
         return Challenge::OneAway;
+    } else if (input == "compressstring") {
+        return Challenge::CompressString;
+    } else if (input == "rotatematrix") {
+        return Challenge::RotateMatrix;
     } else {
         return Challenge::Unspecified;
     }
@@ -128,6 +134,10 @@ Solution* Solver::getSolverForChallenge(const Challenge challenge)
         return new PalindromePermutation();
     case Challenge::OneAway:
         return new OneAway();
+    case Challenge::CompressString:
+        return new CompressString();
+    case Challenge::RotateMatrix:
+        return new RotateMatrix();
     default:
         return nullptr;
     }
@@ -161,6 +171,10 @@ Solution* Solver::getSolverForChallenge(const std::string input, const Challenge
         return new PalindromePermutation(input);
     case Challenge::OneAway:
         return new OneAway(input);
+    case Challenge::CompressString:
+        return new CompressString(input);
+    case Challenge::RotateMatrix:
+        return new RotateMatrix(input);
     default:
         return nullptr;
     }

@@ -28,18 +28,20 @@ enum class Challenge
     Urlify,
     PalindromePermutation,
     OneAway,
+    CompressString,
+    RotateMatrix,
     MAX_CHALENGE,
 };
 
 class Solution
 {
 protected:
-    Solution(){}
+    Solution();
 
     std::string rawInput;
 
 public:
-    virtual ~Solution(){};
+    virtual ~Solution();
 
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const = 0;
     virtual void setInput(const std::string input) { rawInput = input; }
@@ -48,8 +50,37 @@ public:
 protected:
     static std::vector<int> extractIntegers(const std::string &input, const std::string &caller = std::string());
     static std::vector<std::string> extractStrings(const std::string &input, const std::string &caller = std::string());
-    static std::vector<std::vector<int>> extractIntMatrix(const std::string &input, const std::string &caller = std::string());
     static std::vector<std::vector<char>> extractCharMatrix(const std::string &input, const std::string &caller = std::string());
+
+    template <typename T>
+    static std::vector<std::vector<T>> extractIntMatrix(const std::string &input, const std::string &caller);
+    template <typename T>
+    static void extractIntMatrix(T** &M, std::size_t &N, const std::string &input, const std::string &caller = std::string());
+
+    template <typename T>
+    static void extractArray(T* &a, std::size_t &N, const std::string &input, const std::string &caller = std::string());
+    template <typename T>
+    static void extractArray(T** &a, std::size_t &N, const std::string &input, const std::string &caller = std::string());
+    template <typename T>
+    static std::vector<T> extractArray(const std::string &input, const std::string &caller = std::string());
+    template <typename T>
+    static std::vector<std::vector<T>> extractArray(const std::string &input, const std::string &caller = std::string());
+
+    template <typename T>
+    static std::string arrayToString(T* a, const std::size_t N);
+    template <typename T>
+    static std::string arrayToString(T** a, const std::size_t N1, const std::size_t N2);
+    template <typename T>
+    static std::string arrayToString(std::vector<T> a);
+    template <typename T>
+    static std::string arrayToString(std::vector<std::vector<T>> a);
+
+    template <typename T>
+    static std::vector<std::vector<T>> makeCopy(const std::vector<std::vector<T>>& toCopy);
+    template <typename T>
+    static std::vector<T> makeCopy(const std::vector<T>& toCopy);
 };
+
+#include "solution.inl"
 
 #endif // SOLUTION_H

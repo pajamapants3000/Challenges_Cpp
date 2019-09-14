@@ -39,4 +39,8 @@ target_link_libraries(${PROJECT_NAME} palindromepermutation)
 target_link_libraries(${PROJECT_NAME}_TEST palindromepermutation)
 target_link_libraries(${PROJECT_NAME} oneaway)
 target_link_libraries(${PROJECT_NAME}_TEST oneaway)
+target_link_libraries(${PROJECT_NAME} compressstring)
+target_link_libraries(${PROJECT_NAME}_TEST compressstring)
+target_link_libraries(${PROJECT_NAME} rotatematrix)
+target_link_libraries(${PROJECT_NAME}_TEST rotatematrix)
 

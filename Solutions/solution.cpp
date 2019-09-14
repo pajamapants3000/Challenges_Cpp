@@ -1,4 +1,3 @@
-
 #include "solution.h"
 
 #include <cmath>
@@ -8,6 +7,11 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+
+// TODO: create unit tests for these!
+
+Solution::Solution() {}
+Solution::~Solution() {}
 
 std::vector<int> Solution::extractIntegers(const std::string &input, const std::string &caller)
 {
@@ -56,38 +60,6 @@ std::vector<std::string> Solution::extractStrings(const std::string &input, cons
         citer = next;
 
         while (isspace(*citer) || (*citer == ',')) { ++citer; }
-    }
-
-    return result;
-}
-
-std::vector<std::vector<int>> Solution::extractIntMatrix(const std::string &input, const std::string &caller)
-{
-    using row_t = std::vector<int>;
-    using matrix_t = std::vector<row_t>;
-
-    std::string _caller { caller.empty() ? "Solution" : caller };
-    matrix_t result {};
-
-    row_t::size_type rowsize {0};
-    matrix_t::size_type currentRow {0};
-    for (std::string::size_type i {0}; i < input.length(); ++i) {
-        row_t nextRow{};
-        result.push_back(nextRow);
-
-        while (i < input.length() && !isspace(input.at(i)) && (input.at(i) != ',')) {
-            result.at(currentRow).push_back(static_cast<int>(input.at(i) - '0'));
-            ++i;
-        }
-
-        if (rowsize > 0 && result.at(currentRow).size() != rowsize) {
-            std::cerr << _caller << "::extractIntMatrix - Invalid input: rows must be the same length.\n";
-            exit(1);
-        }
-
-        while (i < input.length() && isspace(input.at(i) || (input.at(i) == ','))) { ++i; }
-
-        ++currentRow;
     }
 
     return result;
