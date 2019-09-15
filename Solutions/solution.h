@@ -40,6 +40,7 @@ enum class Challenge
     CompressString,
     RotateMatrix,
     ZeroMatrix,
+    StringRotation,
     MAX_CHALENGE,
 };
 
@@ -75,8 +76,10 @@ const std::vector<T> extractArray(const std::string &input, const std::string &c
         while (pos < input.size()) {
             std::string::size_type nextpos {0};
             next = stringToAny<T>(input.substr(pos), nextpos);
-            pos += nextpos+1;
             result.push_back(next);
+
+            if (nextpos == std::string::npos) break;
+            pos += nextpos+1;
         }
     } catch (const std::invalid_argument& ia) {
         std::cerr << caller << ": Invalid input: " << ia.what() << "\n";

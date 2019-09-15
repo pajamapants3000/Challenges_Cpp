@@ -45,4 +45,6 @@ target_link_libraries(${PROJECT_NAME} rotatematrix)
 target_link_libraries(${PROJECT_NAME}_TEST rotatematrix)
 target_link_libraries(${PROJECT_NAME} zeromatrix)
 target_link_libraries(${PROJECT_NAME}_TEST zeromatrix)
+target_link_libraries(${PROJECT_NAME} stringrotation)
+target_link_libraries(${PROJECT_NAME}_TEST stringrotation)
 

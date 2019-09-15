@@ -51,7 +51,6 @@ template<> const char* stringToAny(const std::string &input, std::string::size_t
     std::string::size_type start { input.find_first_of(wordCharacters) };
     position = input.find_first_not_of(wordCharacters, start);
     const char* result { input.substr(start, position-start).c_str() };
-    ++position;
     return result;
 }
 
@@ -59,7 +58,6 @@ template<> std::string stringToAny(const std::string &input, std::string::size_t
     std::string::size_type start { input.find_first_of(wordCharacters) };
     position = input.find_first_not_of(wordCharacters, start);
     std::string result { input.substr(start, position-start) };
-    ++position;
     return result;
 }
 

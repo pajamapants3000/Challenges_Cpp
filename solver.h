@@ -7,7 +7,7 @@
 #include <tuple>
 
 /* Specify which challege solution to test here */
-static const Challenge todaysChallenge { Challenge::ZeroMatrix };
+static const Challenge todaysChallenge { Challenge::Unspecified };
 /* ******************************************** */
 
 /* Additional Constants */
@@ -28,10 +28,12 @@ public:
     explicit Solver(const std::string challenge);
 
     void run(const std::string input);
+    void run_test(const Challenge challenge, Solution *solution, const std::vector<testcase_t> tests);
     void run_tests();
 
     static Solution* getSolverForChallenge(const Challenge challenge = todaysChallenge);
     static Solution* getSolverForChallenge(const std::string input, const Challenge challenge = todaysChallenge);
+    std::string getStringFromChallenge(const Challenge challenge) const;
     static Challenge getChallengeFromString(const std::string challenge);
 
     void setChallenge(const Challenge challenge);
@@ -41,10 +43,11 @@ private:
     std::string m_input;
     std::vector<testcase_t> m_tests;
 
-    bool isTestCasePassing(Solution *solution, const std::tuple<std::string, std::string> testCase) const;
+    void testCaseHeader(const Challenge challenge) const;
+    bool isTestCasePassing(Solution *solution, const testcase_t testCase) const;
     void testCasePass(const std::string in, const std::string out) const;
     void testCaseFail(const std::string in, const std::string out, const std::string expected) const;
-    void ResultSummary(const int count, const int fail) const;
+    void resultSummary(const Challenge challenge, const int count, const int fail) const;
 };
 
 #endif // SOLVER_H

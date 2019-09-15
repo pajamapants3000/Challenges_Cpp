@@ -22,6 +22,7 @@
 #include "Solutions/compressstring.h"
 #include "Solutions/rotatematrix.h"
 #include "Solutions/zeromatrix.h"
+#include "Solutions/stringrotation.h"
 /* ******************* */
 
 Solver::Solver(const Challenge challenge) :
@@ -54,20 +55,74 @@ void Solver::run(const std::string input)
 
 void Solver::run_tests()
 {
-    m_solution = getSolverForChallenge(m_challenge);
-    m_tests = m_solution->testCases();
+    if (m_challenge == Challenge::Unspecified) {
+        for (int challenge { 1 };
+                challenge != static_cast<int>(Challenge::MAX_CHALENGE);
+                ++challenge) {
+            Solution *solution = getSolverForChallenge(static_cast<Challenge>(challenge));
+            std::vector<testcase_t> tests = solution->testCases();
+            run_test(static_cast<Challenge>(challenge), solution, tests);
+        }
+    } else {
+        m_solution = getSolverForChallenge(m_challenge);
+        m_tests = m_solution->testCases();
 
+        run_test(m_challenge, m_solution, m_tests);
+    }
+}
+
+void Solver::run_test(const Challenge challenge, Solution *solution, const std::vector<testcase_t> tests)
+{
     int testCaseCount {0};
     int testCaseFailCount {0};
 
-    for (testcase_t testCase : m_tests) {
-        if (!isTestCasePassing(m_solution, testCase)) {
+    testCaseHeader(challenge);
+
+    for (testcase_t testCase : tests) {
+        if (!isTestCasePassing(solution, testCase)) {
             ++testCaseFailCount;
         }
         ++testCaseCount;
     }
 
-    ResultSummary(testCaseCount, testCaseFailCount);
+    resultSummary(challenge, testCaseCount, testCaseFailCount);
+}
+
+std::string Solver::getStringFromChallenge(const Challenge challenge) const
+{
+    if (challenge == Challenge::VowelSquare) {
+        return "VowelSquare";
+    } else if (challenge == Challenge::PalindromeNumber) {
+        return "PalindromeNumber";
+    } else if (challenge == Challenge::AddTwoNumbers) {
+        return "AddTwoNumbers";
+    } else if (challenge == Challenge::ClosestEnemy) {
+        return "ClosestEnemy";
+    } else if (challenge == Challenge::LastStoneWeight) {
+        return "LastStoneWeight";
+    } else if (challenge == Challenge::StringSort) {
+        return "StringSort";
+    } else if (challenge == Challenge::IsUnique) {
+        return "IsUnique";
+    } else if (challenge == Challenge::ArePermutations) {
+        return "ArePermutations";
+    } else if (challenge == Challenge::Urlify) {
+        return "Urlify";
+    } else if (challenge == Challenge::PalindromePermutation) {
+        return "PalindromePermutation";
+    } else if (challenge == Challenge::OneAway) {
+        return "OneAway";
+    } else if (challenge == Challenge::CompressString) {
+        return "CompressString";
+    } else if (challenge == Challenge::RotateMatrix) {
+        return "RotateMatrix";
+    } else if (challenge == Challenge::ZeroMatrix) {
+        return "ZeroMatrix";
+    } else if (challenge == Challenge::StringRotation) {
+        return "StringRotation";
+    } else {
+        throw "No challenge specified.";
+    }
 }
 
 Challenge Solver::getChallengeFromString(const std::string input)
@@ -104,6 +159,8 @@ Challenge Solver::getChallengeFromString(const std::string input)
         return Challenge::RotateMatrix;
     } else if (input == "zeromatrix") {
         return Challenge::ZeroMatrix;
+    } else if (input == "stringrotation") {
+        return Challenge::StringRotation;
     } else {
         return Challenge::Unspecified;
     }
@@ -143,6 +200,8 @@ Solution* Solver::getSolverForChallenge(const Challenge challenge)
         return new RotateMatrix();
     case Challenge::ZeroMatrix:
         return new ZeroMatrix();
+    case Challenge::StringRotation:
+        return new StringRotation();
     default:
         return nullptr;
     }
@@ -182,6 +241,8 @@ Solution* Solver::getSolverForChallenge(const std::string input, const Challenge
         return new RotateMatrix(input);
     case Challenge::ZeroMatrix:
         return new ZeroMatrix(input);
+    case Challenge::StringRotation:
+        return new StringRotation(input);
     default:
         return nullptr;
     }
@@ -204,6 +265,11 @@ bool Solver::isTestCasePassing(Solution *solver, const std::tuple<std::string, s
         return false;
 }
 
+void Solver::testCaseHeader(const Challenge challenge) const
+{
+    std::cout << setConsolePurple << "*** " << getStringFromChallenge(challenge) << " ***\n";
+}
+
 void Solver::testCasePass(const std::string in, const std::string out) const
 {
     std::cout << setConsoleGreen << "PASS: " << unsetConsoleColor << in << " -> " << out << "\n";
@@ -216,7 +282,11 @@ void Solver::testCaseFail(const std::string in, const std::string out, const std
     std::cout << "    actual: " << out << "\n";
 }
 
-void Solver::ResultSummary(const int count, const int fail) const
+void Solver::resultSummary(const Challenge challenge, const int count, const int fail) const
 {
-    std::cout << setConsolePurple << "Summary: " << count << " test cases; " << fail << " tests failed.\n" << unsetConsoleColor;
+    std::cout << setConsolePurple
+        << "> " << getStringFromChallenge(challenge) << " Summary: "
+        << count << " test cases; "
+        << fail << " tests failed."
+        << "\n\n" << unsetConsoleColor;
 }
