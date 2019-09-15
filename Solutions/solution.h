@@ -39,6 +39,7 @@ enum class Challenge
     OneAway,
     CompressString,
     RotateMatrix,
+    ZeroMatrix,
     MAX_CHALENGE,
 };
 
@@ -148,12 +149,12 @@ std::string arrayToString(T* a, const std::size_t N)
 }
 
 template <typename T>
-std::string arrayToString(T** a, const std::size_t N1, const std::size_t N2)
+std::string matrixToString(T** a, const std::size_t N1, const std::size_t N2)
 {
     std::string result {};
 
     for (std::size_t i {0}; i < N2; ++i) {
-        std::string next {arrayToString(a[i], N1)};
+        std::string next {arrayToString<T>(a[i], N1)};
         result.append(next);
         if (i != N2-1) {
             result.append(", ");
@@ -166,11 +167,10 @@ template <typename T>
 std::string arrayToString(std::vector<T> a)
 {
     std::string result {};
-    typename std::vector<T>::size_type N {a.size()};
 
-    for (std::size_t i {0}; i < N; ++i) {
-        result.append(std::to_string(a[i]));
-        if (i != N-1) {
+    for (std::size_t i {0}; i < a.size(); ++i) {
+        result.append(std::to_string(a.at(i)));
+        if (i != (a.size()-1)) {
             result.append(" ");
         }
     }
@@ -178,16 +178,14 @@ std::string arrayToString(std::vector<T> a)
 }
 
 template <typename T>
-std::string arrayToString(std::vector<std::vector<T>> a)
+std::string matrixToString(std::vector<std::vector<T>> a)
 {
     std::string result {};
-    typename std::vector<T>::size_type N2 {a.size()};
-    typename std::vector<T>::size_type N1 {a.at(0).size()};
 
-    for (std::size_t i {0}; i < N2; ++i) {
-        std::string next {arrayToString(a[i], N1)};
+    for (std::size_t i {0}; i < a.size(); ++i) {
+        std::string next {arrayToString<T>(a.at(i))};
         result.append(next);
-        if (i != N2-1) {
+        if (i != (a.size()-1)) {
             result.append(", ");
         }
     }
@@ -195,21 +193,23 @@ std::string arrayToString(std::vector<std::vector<T>> a)
 }
 
 template <typename T>
-std::vector<std::vector<T>> makeCopy(const std::vector<std::vector<T>>& toCopy)
+std::vector<T> arrayCopy(const std::vector<T>& toCopy)
 {
-    std::vector<std::vector<T>> result {};
-    for (std::vector<T> row : toCopy) {
-        result.push_back(makeCopy(row));
+    std::vector<T> result {};
+    for (T element : toCopy) {
+        result.push_back(element);
     }
+    return result;
 }
 
 template <typename T>
-std::vector<T> makeCopy(const std::vector<T>& toCopy)
+std::vector<std::vector<T>> matrixCopy(const std::vector<std::vector<T>>& toCopy)
 {
-    std::vector<T> result {};
-    for (std::vector<T> element : toCopy) {
-        result.push_back(element);
+    std::vector<std::vector<T>> result {};
+    for (std::vector<T> row : toCopy) {
+        result.push_back(arrayCopy(row));
     }
+    return result;
 }
 
 #endif // SOLUTION_H

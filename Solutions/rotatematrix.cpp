@@ -42,7 +42,7 @@ std::string RotateMatrix::getSolution() const
 {
     pix_t** M {copyMatrix(m_M, m_N, m_N)};
     rotateMatrix90(M, m_N, m_isClockwise);
-    return arrayToString(M, m_N, m_N);
+    return matrixToString(M, m_N, m_N);
 }
 
 pix_t** RotateMatrix::copyMatrix(pix_t** m, const size_t rows, const size_t cols) const

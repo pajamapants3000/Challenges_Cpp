@@ -21,6 +21,7 @@
 #include "Solutions/oneaway.h"
 #include "Solutions/compressstring.h"
 #include "Solutions/rotatematrix.h"
+#include "Solutions/zeromatrix.h"
 /* ******************* */
 
 Solver::Solver(const Challenge challenge) :
@@ -101,6 +102,8 @@ Challenge Solver::getChallengeFromString(const std::string input)
         return Challenge::CompressString;
     } else if (input == "rotatematrix") {
         return Challenge::RotateMatrix;
+    } else if (input == "zeromatrix") {
+        return Challenge::ZeroMatrix;
     } else {
         return Challenge::Unspecified;
     }
@@ -138,6 +141,8 @@ Solution* Solver::getSolverForChallenge(const Challenge challenge)
         return new CompressString();
     case Challenge::RotateMatrix:
         return new RotateMatrix();
+    case Challenge::ZeroMatrix:
+        return new ZeroMatrix();
     default:
         return nullptr;
     }
@@ -175,6 +180,8 @@ Solution* Solver::getSolverForChallenge(const std::string input, const Challenge
         return new CompressString(input);
     case Challenge::RotateMatrix:
         return new RotateMatrix(input);
+    case Challenge::ZeroMatrix:
+        return new ZeroMatrix(input);
     default:
         return nullptr;
     }
