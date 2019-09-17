@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "solution.h"
+#include "solutionio.h"
 
 StringRotation::StringRotation() :
     Solution(),

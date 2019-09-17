@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "solution.h"
+#include "solutionio.h"
 
 ClosestEnemy::ClosestEnemy() :
     Solution(),

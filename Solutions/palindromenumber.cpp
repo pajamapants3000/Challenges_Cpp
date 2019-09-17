@@ -6,6 +6,7 @@
 
 PalindromeNumber::PalindromeNumber(bool useNumericSolution) :
     Solution(),
+    rawInput {},
     useNumericSolution { useNumericSolution },
     number {0}
 {
@@ -13,6 +14,7 @@ PalindromeNumber::PalindromeNumber(bool useNumericSolution) :
 
 PalindromeNumber::PalindromeNumber(std::string input, bool useNumericSolution) :
     Solution(),
+    rawInput {},
     useNumericSolution { useNumericSolution },
     number {0}
 {

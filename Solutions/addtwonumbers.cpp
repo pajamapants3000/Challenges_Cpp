@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "solution.h"
+#include "solutionio.h"
 
 AddTwoNumbers::AddTwoNumbers() :
     Solution(),

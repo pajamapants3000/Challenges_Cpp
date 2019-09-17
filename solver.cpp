@@ -5,6 +5,7 @@
 #include <tuple>
 #include <vector>
 #include <locale>
+#include <memory>
 
 #include "Solutions/solution.h"       // abstract base class for all challenge solutions
 /* Challenge solutions */
@@ -49,7 +50,7 @@ void Solver::setChallenge(const Challenge challenge)
 
 void Solver::run(const std::string input)
 {
-    m_solution = getSolverForChallenge(input, m_challenge);
+    m_solution = solutionFactory(input, m_challenge);
     std::cout << m_solution->getSolution();
 }
 
@@ -59,19 +60,23 @@ void Solver::run_tests()
         for (int challenge { 1 };
                 challenge != static_cast<int>(Challenge::MAX_CHALENGE);
                 ++challenge) {
-            Solution *solution = getSolverForChallenge(static_cast<Challenge>(challenge));
-            std::vector<testcase_t> tests = solution->testCases();
-            run_test(static_cast<Challenge>(challenge), solution, tests);
+            try {
+                std::shared_ptr<Solution> solution = solutionFactory(static_cast<Challenge>(challenge));
+                std::vector<testcase_t> tests = solution->testCases();
+                run_test(static_cast<Challenge>(challenge), solution, tests);
+            } catch (const char* exStr) {
+                std::cerr << getStringFromChallenge(static_cast<Challenge>(challenge)) << ": " << exStr << "\n";
+            }
         }
     } else {
-        m_solution = getSolverForChallenge(m_challenge);
+        m_solution = solutionFactory(m_challenge);
         m_tests = m_solution->testCases();
 
         run_test(m_challenge, m_solution, m_tests);
     }
 }
 
-void Solver::run_test(const Challenge challenge, Solution *solution, const std::vector<testcase_t> tests)
+void Solver::run_test(const Challenge challenge, std::shared_ptr<Solution> solution, const std::vector<testcase_t> tests)
 {
     int testCaseCount {0};
     int testCaseFailCount {0};
@@ -166,89 +171,89 @@ Challenge Solver::getChallengeFromString(const std::string input)
     }
 }
 
-Solution* Solver::getSolverForChallenge(const Challenge challenge)
+std::shared_ptr<Solution> Solver::solutionFactory(const Challenge challenge)
 {
     Challenge challenge_local { challenge == Challenge::Unspecified ? todaysChallenge : challenge };
 
     switch (challenge_local)
     {
     case Challenge::VowelSquare:
-        return new VowelSquare();
+        return std::shared_ptr<Solution>(new VowelSquare());
     case Challenge::PalindromeNumber:
-        return new PalindromeNumber();
+        return std::shared_ptr<Solution>(new PalindromeNumber());
     case Challenge::AddTwoNumbers:
-        return new AddTwoNumbers();
+        return std::shared_ptr<Solution>(new AddTwoNumbers());
     case Challenge::ClosestEnemy:
-        return new ClosestEnemy();
+        return std::shared_ptr<Solution>(new ClosestEnemy());
     case Challenge::LastStoneWeight:
-        return new LastStoneWeight();
+        return std::shared_ptr<Solution>(new LastStoneWeight());
     case Challenge::StringSort:
-        return new StringSort();
+        return std::shared_ptr<Solution>(new StringSort());
     case Challenge::IsUnique:
-        return new IsUnique();
+        return std::shared_ptr<Solution>(new IsUnique());
     case Challenge::ArePermutations:
-        return new ArePermutations();
+        return std::shared_ptr<Solution>(new ArePermutations());
     case Challenge::Urlify:
-        return new Urlify();
+        return std::shared_ptr<Solution>(new Urlify());
     case Challenge::PalindromePermutation:
-        return new PalindromePermutation();
+        return std::shared_ptr<Solution>(new PalindromePermutation());
     case Challenge::OneAway:
-        return new OneAway();
+        return std::shared_ptr<Solution>(new OneAway());
     case Challenge::CompressString:
-        return new CompressString();
+        return std::shared_ptr<Solution>(new CompressString());
     case Challenge::RotateMatrix:
-        return new RotateMatrix();
+        return std::shared_ptr<Solution>(new RotateMatrix());
     case Challenge::ZeroMatrix:
-        return new ZeroMatrix();
+        return std::shared_ptr<Solution>(new ZeroMatrix());
     case Challenge::StringRotation:
-        return new StringRotation();
+        return std::shared_ptr<Solution>(new StringRotation());
     default:
         return nullptr;
     }
 }
 
-Solution* Solver::getSolverForChallenge(const std::string input, const Challenge challenge)
+std::shared_ptr<Solution> Solver::solutionFactory(const std::string input, const Challenge challenge)
 {
     Challenge challenge_local { challenge == Challenge::Unspecified ? todaysChallenge : challenge };
 
     switch (challenge_local)
     {
     case Challenge::VowelSquare:
-        return new VowelSquare(input);
+        return std::shared_ptr<Solution>(new VowelSquare(input));
     case Challenge::PalindromeNumber:
-        return new PalindromeNumber(input);
+        return std::shared_ptr<Solution>(new PalindromeNumber(input));
     case Challenge::AddTwoNumbers:
-        return new AddTwoNumbers(input);
+        return std::shared_ptr<Solution>(new AddTwoNumbers(input));
     case Challenge::ClosestEnemy:
-        return new ClosestEnemy(input);
+        return std::shared_ptr<Solution>(new ClosestEnemy(input));
     case Challenge::LastStoneWeight:
-        return new LastStoneWeight(input);
+        return std::shared_ptr<Solution>(new LastStoneWeight(input));
     case Challenge::StringSort:
-        return new StringSort(input);
+        return std::shared_ptr<Solution>(new StringSort(input));
     case Challenge::IsUnique:
-        return new IsUnique(input);
+        return std::shared_ptr<Solution>(new IsUnique(input));
     case Challenge::ArePermutations:
-        return new ArePermutations(input);
+        return std::shared_ptr<Solution>(new ArePermutations(input));
     case Challenge::Urlify:
-        return new Urlify(input);
+        return std::shared_ptr<Solution>(new Urlify(input));
     case Challenge::PalindromePermutation:
-        return new PalindromePermutation(input);
+        return std::shared_ptr<Solution>(new PalindromePermutation(input));
     case Challenge::OneAway:
-        return new OneAway(input);
+        return std::shared_ptr<Solution>(new OneAway(input));
     case Challenge::CompressString:
-        return new CompressString(input);
+        return std::shared_ptr<Solution>(new CompressString(input));
     case Challenge::RotateMatrix:
-        return new RotateMatrix(input);
+        return std::shared_ptr<Solution>(new RotateMatrix(input));
     case Challenge::ZeroMatrix:
-        return new ZeroMatrix(input);
+        return std::shared_ptr<Solution>(new ZeroMatrix(input));
     case Challenge::StringRotation:
-        return new StringRotation(input);
+        return std::shared_ptr<Solution>(new StringRotation(input));
     default:
         return nullptr;
     }
 }
 
-bool Solver::isTestCasePassing(Solution *solver, const std::tuple<std::string, std::string> testCase) const
+bool Solver::isTestCasePassing(std::shared_ptr<Solution> solver, const std::tuple<std::string, std::string> testCase) const
 {
         std::string in { std::get<0>(testCase) };
         std::string expected { std::get<1>(testCase) };

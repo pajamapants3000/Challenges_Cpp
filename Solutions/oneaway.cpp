@@ -12,7 +12,9 @@ OneAway::OneAway(std::string input) :
     Solution(),
     m_s1 {},
     m_s2 {}
-{}
+{
+    setInput(input);
+}
 
 OneAway::~OneAway()
 {

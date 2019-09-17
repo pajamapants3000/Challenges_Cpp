@@ -8,6 +8,7 @@
 #include <cctype>
 
 #include "solution.h"
+#include "solutionio.h"
 
 constexpr char NOT_FOUND[] { "not found" };
 
@@ -27,7 +28,6 @@ std::vector<std::tuple<std::string, std::string>> VowelSquare::testCases() const
 
 void VowelSquare::setInput(const std::string input)
 {
-    rawInput = input;
     matrix = extractArray<std::string>(input, "VowelSquare");
 }
 

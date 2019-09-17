@@ -53,6 +53,7 @@ protected:
     std::string getNumericSolution() const;
 
 private:
+    std::string rawInput;
     bool useNumericSolution;
     std::int64_t number;
 };

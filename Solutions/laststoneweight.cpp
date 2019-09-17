@@ -34,7 +34,6 @@ std::vector<std::tuple<std::string, std::string>> LastStoneWeight::testCases() c
 
 void LastStoneWeight::setInput(const std::string input)
 {
-    rawInput = input;
     rockWeights = parseRockWeights(input);
     if (useHomemadeSort) {
         sortRockWeights(rockWeights.begin(), rockWeights.end());

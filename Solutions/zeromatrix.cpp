@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "solutionio.h"
+
 ZeroMatrix::ZeroMatrix() :
     Solution(),
     m_a{}
