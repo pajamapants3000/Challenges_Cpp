@@ -4,6 +4,8 @@
 
 static const char* wordCharacters { "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_" };
 
+template<> const std::string to_string(char in) { return std::string(1, in); }
+
 template<> int stringToAny<int>(const std::string &input, std::string::size_type &position) {
     return std::stoi(input, &position, 10);
 }

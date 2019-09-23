@@ -12,23 +12,43 @@ Sort<T>::Sort() :
 
 template<typename T>
 Sort<T>::Sort(T* a, const size_t N, const SortAlgorithm kind) :
-    m_a { nullptr },
+    m_a { a },
     m_N { N },
+    m_head {nullptr},
     m_kind { kind }
 {
-    m_a = a;
+}
+
+template<typename T>
+Sort<T>::Sort(Node* head, const SortAlgorithm kind) :
+    m_a { nullptr },
+    m_N { 0 },
+    m_head {head},
+    m_kind { kind }
+{
 }
 
 template<typename T>
 Sort<T>::~Sort()
 {
     delete[] m_a;
+    m_head->clearMem();
 }
 
 template<typename T>
 void Sort<T>::sort()
 {
     return sort(m_a, m_N, m_kind);
+}
+
+template<typename T>
+void Sort<T>::sortLL()
+{
+    Node* pDummy { new Node() };
+    pDummy->next = m_head;
+    sortLL(pDummy, m_kind);
+    m_head = pDummy->next;
+    delete pDummy;
 }
 
 template<typename T>
@@ -39,6 +59,21 @@ T* Sort<T>::getSorted() const
 
     sort(a, m_N, m_kind);
     return a;
+}
+
+template<typename T>
+typename Sort<T>::Node* Sort<T>::getLLSorted() const
+{
+    Node* b {new Node()};
+    copyLL(m_head, b);
+
+    Node* pDummy { new Node() };
+    pDummy->next = b;
+    sortLL(pDummy, m_kind);
+    b = pDummy->next;
+    delete pDummy;
+
+    return b;
 }
 
 template<typename T>
@@ -80,10 +115,32 @@ void Sort<T>::sort(T* a, const size_t N, const SortAlgorithm algorithm)
         return shellsort(a, N);
     case SortAlgorithm::Heap:
         return heapsort(a, N);
-    case SortAlgorithm::Unspecified:
+    case SortAlgorithm::Merge:
+        return mergesort(a, N);
+    case SortAlgorithm::BUMerge:
+        return bumergesort(a, N);
+    default:
         throw "Must specify sort algorithm.";
     }
 }
+
+template<typename T>
+void Sort<T>::sortLL(Node* in, const SortAlgorithm algorithm)
+{
+    switch (algorithm) {
+    case SortAlgorithm::Shell:
+        throw "ShellSort not implemented for linked lists.";
+    case SortAlgorithm::Heap:
+        throw "HeapSort not implemented for linked lists.";
+    case SortAlgorithm::Merge:
+        throw "Top-down MergeSort not implemented for linked lists.";
+    case SortAlgorithm::BUMerge:
+        return bumergesort(in);
+    default:
+        throw "Must specify sort algorithm.";
+    }
+}
+
 template<typename T>
 void Sort<T>::shellsort(T* a, const size_t N)
 {
@@ -109,6 +166,60 @@ void Sort<T>::heapsort(T* a, const size_t N)
 }
 
 template<typename T>
+void Sort<T>::mergesort(T* a, const size_t N)
+{
+    T* aux = new T[N];
+    copy(a, aux, N);
+
+    mergesort(a, aux, 0, N-1);
+
+    delete[] aux;
+}
+
+template<typename T>
+void Sort<T>::mergesort(T* a, T* aux, const size_t lo, const size_t hi)
+{
+    if (hi <= lo) return;
+    size_t mid { lo + ((hi-lo)/2) };
+    mergesort(a, aux, lo, mid);
+    mergesort(a, aux, mid+1, hi);
+    merge(a, aux, lo, mid, hi);
+}
+
+template<typename T>
+void Sort<T>::bumergesort(T* a, const size_t N)
+{
+    T* aux = new T[N];
+    copy(a, aux, N);
+
+    for (size_t sz {1}; sz<N; sz+=sz) {
+        for (size_t i {0}; i<(N-sz); i+=sz+sz) {
+            merge(a, aux, i, i+sz-1, std::min(i+(sz+sz)-1, N-1));
+        }
+    }
+
+    delete[] aux;
+}
+
+// in->next == lo
+template<typename T>
+void Sort<T>::bumergesort(Node* in)
+{
+    size_t sz {1};
+    Node *pIn, *pMid, *pHi;
+
+    mergeReset(in, pIn, pMid, pHi, sz);
+    while (pMid && pMid->next) {
+        while (pMid && pMid->next) {
+            merge(pIn, pMid, pHi);
+            mergeAdvance(pIn, pMid, pHi, sz);
+        }
+        sz+=sz;
+        mergeReset(in, pIn, pMid, pHi, sz);
+    }
+}
+
+template<typename T>
 bool Sort<T>::less(const T a, const T b)
 {
     return a < b;
@@ -120,6 +231,30 @@ void Sort<T>::swap(T* a, const size_t i, const size_t j)
     T temp { a[i] };
     a[i] = a[j];
     a[j] = temp;
+}
+
+template <typename T>
+bool Sort<T>::equals(T* in, T* out, size_t N)
+{
+    for (size_t i {0}; i < N; ++i) {
+        if (in[i] != out[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <typename T>
+bool Sort<T>::equals(Node* in, Node* out)
+{
+    while (in) {
+        if (!out || out->val != in->val) {
+            return false;
+        }
+        in = in->next;
+        out = out->next;
+    }
+    return true;
 }
 
 template<typename T>
@@ -207,6 +342,17 @@ void Sort<T>::copy(T* a, T* b, size_t N)
 }
 
 template<typename T>
+void Sort<T>::copyLL(Node* a, Node* b)
+{
+    b->val = a->val;
+    while ((a = Node::advance(a))) {    // test assignment result
+        b->next = new Node();
+        b = Node::advance(b);
+        b->val = a->val;
+    }
+}
+
+template<typename T>
 void Sort<T>::heaporder(T* a, size_t N)
 {
     for (size_t i {N/2}; i != 0; --i) {
@@ -235,4 +381,72 @@ void Sort<T>::sink(T* heap, size_t k, size_t N)
         swap(heap, i, j);
         i = j;
     }
+}
+
+template<typename T>
+void Sort<T>::merge(T* a, T* aux, size_t lo, size_t mid, size_t hi)
+{
+    copy(a, aux, hi+1);
+    size_t i {lo};
+    size_t j {mid+1};
+    for (size_t k {0}; k <= hi; ++k) {
+        if (i > mid) a[k] = aux[j++];
+        else if (j > hi) a[k] = aux[i++];
+        else if (less(a[j], a[i])) a[k] = aux[j++];
+        else a[k] = aux[i++];
+    }
+}
+
+template<typename T>
+void Sort<T>::merge(Node* in, Node* &mid, Node* &hi)
+{
+    Node* const pDummy = new Node();
+    Node* const pMid = mid->next;
+    Node* const pOut = hi ? hi->next : hi;
+    Node* pTail {pDummy};
+    Node* a {in->next};
+    Node* b {pMid};
+    size_t n {0};
+    while ((a != pMid) || (b != pOut)) {
+        if (a == pMid) {
+            pTail->next = b;
+            pTail = pTail->next;
+            b = b->next;
+        } else if (b == pOut) {
+            pTail->next = a;
+            pTail = pTail->next;
+            a = a->next;
+        } else  if (less(b->val, a->val)) {
+            pTail->next = b;
+            pTail = pTail->next;
+            b = b->next;
+        } else {
+            pTail->next = a;
+            pTail = pTail->next;
+            a = a->next;
+        }
+        ++n;
+    }
+    in->next = pDummy->next;
+    // n/2 == sz, advance lo by sz-1 same as advance in by sz
+    mid = Node::advance(in, (n/2));
+    hi = pTail;
+    hi->next = pOut;
+    delete pDummy;
+}
+
+template<typename T>
+void Sort<T>::mergeAdvance(Node* &in, Node* &mid, Node* &hi, size_t sz)
+{
+    in = Node::advance(in, sz+sz);
+    mid = Node::advance(mid, sz+sz);
+    hi = Node::advance(hi, sz+sz);
+}
+
+template<typename T>
+void Sort<T>::mergeReset(Node* pHead, Node* &in, Node* &mid, Node* &hi, size_t sz)
+{
+    in = pHead;
+    mid = Node::advance(in->next, sz-1);
+    hi = Node::advance(mid ? mid->next : mid, sz-1);
 }

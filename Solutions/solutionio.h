@@ -22,6 +22,14 @@ template<> const char* stringToAny<const char*>(const std::string &input, std::s
 template<> std::string stringToAny<std::string>(const std::string &input, std::string::size_type &position);
 
 template <typename T>
+const std::string to_string(T in)
+{
+    return std::to_string(in);
+}
+
+template<> const std::string to_string<char>(char in);
+
+template <typename T>
 const std::vector<T> extractArray(const std::string &input, const std::string &caller = "Solution")
 {
     std::vector<T> result {};
@@ -102,7 +110,7 @@ std::string arrayToString(T* a, const std::size_t N)
     std::string result {};
 
     for (std::size_t i {0}; i < N; ++i) {
-        result.append(std::to_string(a[i]));
+        result.append(to_string(a[i]));
         if (i != N-1) {
             result.append(" ");
         }
@@ -131,7 +139,7 @@ std::string arrayToString(std::vector<T> a)
     std::string result {};
 
     for (std::size_t i {0}; i < a.size(); ++i) {
-        result.append(std::to_string(a.at(i)));
+        result.append(to_string(a.at(i)));
         if (i != (a.size()-1)) {
             result.append(" ");
         }

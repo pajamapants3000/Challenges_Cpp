@@ -8,7 +8,7 @@ add_subdirectory(Solutions)
 
 add_executable(${PROJECT_NAME} "main.cpp")
 add_executable(${PROJECT_NAME}_TEST "maintest.cpp")
-add_executable(${PROJECT_NAME}_SORTTEST "sorttest.cpp")
+add_executable(${PROJECT_NAME}_SORTTEST "sorttest.cpp" "Solutions/solutionio.cpp")
 
 add_library(solver "solver.cpp")
 
