@@ -23,6 +23,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "arepermutations"; }
+    virtual std::string display() override { return "ArePermutations"; }
+
     static bool arePermutations(const std::string s1, const std::string s2);
 private:
     std::string m_s1;

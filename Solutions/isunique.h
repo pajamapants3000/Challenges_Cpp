@@ -22,6 +22,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "isunique"; }
+    virtual std::string display() override { return "IsUnique"; }
+
     bool isUnique(const char s[], std::size_t N, std::size_t A) const;
     bool isUnique_Space(char s[], std::size_t N, std::size_t A) const;
     std::size_t sizeOfAlphabet(std::size_t sizeOfCharType) const;

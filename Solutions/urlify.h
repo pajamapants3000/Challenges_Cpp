@@ -22,6 +22,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "urlify"; }
+    virtual std::string display() override { return "URLify"; }
+
     static void urlify(std::string &s, const urlsize_t N);
 
 private:

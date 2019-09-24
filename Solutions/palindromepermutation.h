@@ -19,6 +19,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "palindromepermutation"; }
+    virtual std::string display() override { return "PalindromePermutation"; }
+
     static bool palindromePermutation(const std::string s);
 
 private:

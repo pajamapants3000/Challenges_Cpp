@@ -18,6 +18,28 @@
 #include <iostream>
 #include <memory>
 
+enum class Challenge
+{
+    Unspecified,
+    StringSort,
+    VowelSquare,
+    PalindromeNumber,
+    AddTwoNumbers,
+    ClosestEnemy,
+    LastStoneWeight,
+    IsUnique,
+    ArePermutations,
+    Urlify,
+    PalindromePermutation,
+    OneAway,
+    CompressString,
+    RotateMatrix,
+    ZeroMatrix,
+    StringRotation,
+    RemoveDups,
+    MAX_CHALENGE,
+};
+
 class Solution
 {
 public:
@@ -26,6 +48,11 @@ public:
     virtual std::vector<std::tuple<std::string, std::string>> testCases() const = 0;
     virtual void setInput(const std::string input) = 0;
     virtual std::string getSolution() const = 0;
+
+    virtual std::string key() = 0;
+    virtual std::string display() = 0;
+
+    static Challenge getChallengeFromString(const std::string input);
 };
 
 #endif // SOLUTION_H

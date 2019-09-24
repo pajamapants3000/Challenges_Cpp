@@ -40,6 +40,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "stringrotation"; }
+    virtual std::string display() override { return "StringRotation"; }
+
     static bool isRotation(const std::string s1, const std::string s2);
 
 private:

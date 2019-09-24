@@ -57,6 +57,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "closestenemy"; }
+    virtual std::string display() override { return "ClosestEnemy"; }
+
     matrix_t matrix;
 private:
     size_t translate(size_t x, long trans, size_t max) const;

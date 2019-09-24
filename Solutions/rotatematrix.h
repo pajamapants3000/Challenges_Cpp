@@ -25,6 +25,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "rotatematrix"; }
+    virtual std::string display() override { return "RotateMatrix"; }
+
     static void rotateMatrix90(pix_t** M, const size_t N, const bool isClockwise);
 
     void setIsClockwise(bool isClockwise);

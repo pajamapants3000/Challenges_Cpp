@@ -48,6 +48,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "palindromenumber"; }
+    virtual std::string display() override { return "PalindromeNumber"; }
+
 protected:
     std::string getStringSolution() const;
     std::string getNumericSolution() const;

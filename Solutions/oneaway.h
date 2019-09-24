@@ -21,6 +21,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "oneaway"; }
+    virtual std::string display() override { return "OneAway"; }
+
     static bool oneAway(const std::string s1, const std::string s2);
 
 private:

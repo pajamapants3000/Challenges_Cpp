@@ -37,6 +37,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "addtwonumbers"; }
+    virtual std::string display() override { return "AddTwoNumbers"; }
+
     std::vector<ListNode*> inputNumbers;
 
 private:

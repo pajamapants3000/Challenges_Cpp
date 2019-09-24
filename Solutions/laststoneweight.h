@@ -51,6 +51,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "laststoneweight"; }
+    virtual std::string display() override { return "LastStoneWeight"; }
+
 private:
     std::vector<int> parseRockWeights(const std::string input);
     std::vector<int> smashRocks(std::vector<int> &weights) const;

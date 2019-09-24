@@ -44,6 +44,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "vowelsquare"; }
+    virtual std::string display() override { return "VowelSquare"; }
+
 private:
     std::vector<std::string> extractInput(std::string &input);
     void trim(std::string &toTrim) const;

@@ -22,6 +22,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "zeromatrix"; }
+    virtual std::string display() override { return "ZeroMatrix"; }
+
     static void zeroMatrix(std::vector<std::vector<int>>& a);
 
 private:

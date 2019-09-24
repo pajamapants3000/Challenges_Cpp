@@ -19,6 +19,9 @@ public:
     virtual void setInput(const std::string input) override;
     virtual std::string getSolution() const override;
 
+    virtual std::string key() override { return "compressstring"; }
+    virtual std::string display() override { return "CompressString"; }
+
     static std::string compressString(const std::string s);
 
 private:

@@ -2,22 +2,26 @@ cmake_minimum_required(VERSION 2.8)
 
 project(Solutions)
 
-add_library(solution "solution.cpp")
-add_library(vowelsquare "vowelsquare.cpp" "solutionio.cpp")
-add_library(palindromenumber "palindromenumber.cpp" "solutionio.cpp")
-add_library(addtwonumbers "addtwonumbers.cpp" "solutionio.cpp")
-add_library(closestenemy "closestenemy.cpp" "solutionio.cpp")
-add_library(laststoneweight "laststoneweight.cpp" "solutionio.cpp")
-add_library(stringsort "stringsort.cpp" "solutionio.cpp")
-add_library(isunique "isunique.cpp" "solutionio.cpp")
-add_library(arepermutations "arepermutations.cpp" "solutionio.cpp")
-add_library(urlify "urlify.cpp" "solutionio.cpp")
-add_library(palindromepermutation "palindromepermutation.cpp" "solutionio.cpp")
-add_library(oneaway "oneaway.cpp" "solutionio.cpp")
-add_library(compressstring "compressstring.cpp" "solutionio.cpp")
-add_library(rotatematrix "rotatematrix.cpp" "solutionio.cpp")
-add_library(zeromatrix "zeromatrix.cpp" "solutionio.cpp")
-add_library(stringrotation "stringrotation.cpp" "solutionio.cpp")
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/..)
+
+add_library(solution "solution.cpp" "solutionio.cpp")
+add_library(solutionfactory "solutionfactory.cpp")
+add_library(vowelsquare "vowelsquare.cpp")
+add_library(palindromenumber "palindromenumber.cpp")
+add_library(addtwonumbers "addtwonumbers.cpp")
+add_library(closestenemy "closestenemy.cpp")
+add_library(laststoneweight "laststoneweight.cpp")
+add_library(stringsort "stringsort.cpp")
+add_library(isunique "isunique.cpp")
+add_library(arepermutations "arepermutations.cpp")
+add_library(urlify "urlify.cpp")
+add_library(palindromepermutation "palindromepermutation.cpp")
+add_library(oneaway "oneaway.cpp")
+add_library(compressstring "compressstring.cpp")
+add_library(rotatematrix "rotatematrix.cpp")
+add_library(zeromatrix "zeromatrix.cpp")
+add_library(stringrotation "stringrotation.cpp")
+add_library(removedups "removedups.cpp")
 
 target_link_libraries(vowelsquare solution)
 target_link_libraries(palindromenumber solution)
@@ -34,3 +38,23 @@ target_link_libraries(compressstring solution)
 target_link_libraries(rotatematrix solution)
 target_link_libraries(zeromatrix solution)
 target_link_libraries(stringrotation solution)
+target_link_libraries(removedups solution)
+
+target_link_libraries(solutionfactory
+    vowelsquare
+    palindromenumber
+    addtwonumbers
+    closestenemy
+    laststoneweight
+    stringsort
+    isunique
+    arepermutations
+    urlify
+    palindromepermutation
+    oneaway
+    compressstring
+    rotatematrix
+    zeromatrix
+    stringrotation
+    removedups
+)
