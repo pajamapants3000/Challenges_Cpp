@@ -190,7 +190,6 @@ template<typename T>
 void Sort<T>::bumergesort(T* a, const size_t N)
 {
     T* aux = new T[N];
-    copy(a, aux, N);
 
     for (size_t sz {1}; sz<N; sz+=sz) {
         for (size_t i {0}; i<(N-sz); i+=sz+sz) {
@@ -386,13 +385,13 @@ void Sort<T>::sink(T* heap, size_t k, size_t N)
 template<typename T>
 void Sort<T>::merge(T* a, T* aux, size_t lo, size_t mid, size_t hi)
 {
-    copy(a, aux, hi+1);
+    copy(a+lo, aux+lo, (hi-lo)+1);
     size_t i {lo};
     size_t j {mid+1};
-    for (size_t k {0}; k <= hi; ++k) {
+    for (size_t k {lo}; k <= hi; ++k) {
         if (i > mid) a[k] = aux[j++];
         else if (j > hi) a[k] = aux[i++];
-        else if (less(a[j], a[i])) a[k] = aux[j++];
+        else if (less(aux[j], aux[i])) a[k] = aux[j++];
         else a[k] = aux[i++];
     }
 }

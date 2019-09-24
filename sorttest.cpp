@@ -81,9 +81,15 @@ template <>
 std::vector<std::tuple<std::int64_t*, std::int64_t*, size_t>> getTestCases<std::int64_t>()
 {
     std::vector<std::tuple<std::int64_t*, std::int64_t*, size_t>> result;
+    result.push_back(std::make_tuple(new std::int64_t[10] {9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
+                                     new std::int64_t[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+                                     10));
     result.push_back(std::make_tuple(new std::int64_t[5] {2, 1, 0, -1, -2},
                                      new std::int64_t[5] {-2, -1, 0, 1, 2},
                                      5));
+    result.push_back(std::make_tuple(new std::int64_t[8] {64, 127, 99, 3033, 34, 3, 78793234, 983},
+                                     new std::int64_t[8] {3, 34, 64, 99, 127, 983, 3033, 78793234},
+                                     8));
     return result;
 }
 
@@ -91,9 +97,12 @@ template <>
 std::vector<std::tuple<size_t*, size_t*, size_t>> getTestCases<size_t>()
 {
     std::vector<std::tuple<size_t*, size_t*, size_t>> result;
-    result.push_back(std::make_tuple(new size_t[5] {5, 4, 3, 2, 1},
-                                     new size_t[5] {1, 2, 3, 4, 5},
-                                     5));
+    result.push_back(std::make_tuple(new size_t[10] {9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
+                                     new size_t[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+                                     10));
+    result.push_back(std::make_tuple(new size_t[7] {64, 99, 3033, 34, 3, 78793234, 983},
+                                     new size_t[7] {3, 34, 64, 99, 983, 3033, 78793234},
+                                     7));
     return result;
 }
 
@@ -104,6 +113,9 @@ std::vector<std::tuple<char*, char*, size_t>> getTestCases<char>()
     result.push_back(std::make_tuple(new char[5] {'e', 'd', 'c', 'b', 'a'},
                                      new char[5] {'a', 'b', 'c', 'd', 'e'},
                                      5));
+    result.push_back(std::make_tuple(new char[10] {'x', 'A', 'd', 'U', 'R', 'b', 'z', 'f', 'H', 'a'},
+                                     new char[10] {'A', 'H', 'R', 'U', 'a', 'b', 'd', 'f', 'x', 'z'},
+                                     10));
     return result;
 }
 
@@ -111,6 +123,9 @@ template <>
 std::vector<std::tuple<bool*, bool*, size_t>> getTestCases<bool>()
 {
     std::vector<std::tuple<bool*, bool*, size_t>> result;
+    result.push_back(std::make_tuple(new bool[4] {1, 0, 1, 0},
+                                     new bool[4] {0, 0, 1, 1},
+                                     4));
     result.push_back(std::make_tuple(new bool[5] {1, 1, 1, 0, 0},
                                      new bool[5] {0, 0, 1, 1, 1},
                                      5));
@@ -131,6 +146,9 @@ template <>
 std::vector<std::tuple<Comparable*, Comparable*, size_t>> getTestCases<Comparable>()
 {
     std::vector<std::tuple<Comparable*, Comparable*, size_t>> result;
+    result.push_back(std::make_tuple(new Comparable[5] { Comparable(4), Comparable(3), Comparable(2), Comparable(1) },
+                                     new Comparable[5] { Comparable(1), Comparable(2), Comparable(3), Comparable(4) },
+                                     4));
     result.push_back(std::make_tuple(new Comparable[5] { Comparable(5), Comparable(4), Comparable(3), Comparable(2), Comparable(1) },
                                      new Comparable[5] { Comparable(1), Comparable(2), Comparable(3), Comparable(4), Comparable(5) },
                                      5));
@@ -143,6 +161,10 @@ std::vector<std::tuple<typename Sort<std::int64_t>::Node*, typename Sort<std::in
     std::vector<std::tuple<typename Sort<std::int64_t>::Node*, typename Sort<std::int64_t>::Node*>> result;
     result.push_back(std::make_tuple(Sort<std::int64_t>::Node::fromArray(new std::int64_t[5] {2, 1, 0, -1, -2}, 5),
                                      Sort<std::int64_t>::Node::fromArray(new std::int64_t[5] {-2, -1, 0, 1, 2}, 5)));
+    result.push_back(std::make_tuple(Sort<std::int64_t>::Node::fromArray(new std::int64_t[10] {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}, 10),
+                                     Sort<std::int64_t>::Node::fromArray(new std::int64_t[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 10)));
+    result.push_back(std::make_tuple(Sort<std::int64_t>::Node::fromArray(new std::int64_t[8] {64, 127, 99, 3033, 34, 3, 78793234, 983}, 8),
+                                     Sort<std::int64_t>::Node::fromArray(new std::int64_t[8] {3, 34, 64, 99, 127, 983, 3033, 78793234}, 8)));
     return result;
 }
 
@@ -152,6 +174,10 @@ std::vector<std::tuple<typename Sort<size_t>::Node*, typename Sort<size_t>::Node
     std::vector<std::tuple<typename Sort<size_t>::Node*, typename Sort<size_t>::Node*>> result;
     result.push_back(std::make_tuple(Sort<size_t>::Node::fromArray(new size_t[5] {5, 4, 3, 2, 1}, 5),
                                      Sort<size_t>::Node::fromArray(new size_t[5] {1, 2, 3, 4, 5}, 5)));
+    result.push_back(std::make_tuple(Sort<size_t>::Node::fromArray(new size_t[10] {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}, 10),
+                                     Sort<size_t>::Node::fromArray(new size_t[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 10)));
+    result.push_back(std::make_tuple(Sort<size_t>::Node::fromArray(new size_t[7] {64, 99, 3033, 34, 3, 78793234, 983}, 7),
+                                     Sort<size_t>::Node::fromArray(new size_t[7] {3, 34, 64, 99, 983, 3033, 78793234}, 7)));
     return result;
 }
 
@@ -161,6 +187,8 @@ std::vector<std::tuple<typename Sort<char>::Node*, typename Sort<char>::Node*>> 
     std::vector<std::tuple<typename Sort<char>::Node*, typename Sort<char>::Node*>> result;
     result.push_back(std::make_tuple(Sort<char>::Node::fromArray(new char[5] {'e', 'd', 'c', 'b', 'a'}, 5),
                                      Sort<char>::Node::fromArray(new char[5] {'a', 'b', 'c', 'd', 'e'}, 5)));
+    result.push_back(std::make_tuple(Sort<char>::Node::fromArray(new char[10] {'x', 'A', 'd', 'U', 'R', 'b', 'z', 'f', 'H', 'a'}, 10),
+                                     Sort<char>::Node::fromArray(new char[10] {'A', 'H', 'R', 'U', 'a', 'b', 'd', 'f', 'x', 'z'}, 10)));
     return result;
 }
 
@@ -168,6 +196,8 @@ template <>
 std::vector<std::tuple<typename Sort<bool>::Node*, typename Sort<bool>::Node*>> getLLTestCases<bool>()
 {
     std::vector<std::tuple<typename Sort<bool>::Node*, typename Sort<bool>::Node*>> result;
+    result.push_back(std::make_tuple(Sort<bool>::Node::fromArray(new bool[4] {1, 0, 1, 0}, 4),
+                                     Sort<bool>::Node::fromArray(new bool[4] {0, 0, 1, 1}, 4)));
     result.push_back(std::make_tuple(Sort<bool>::Node::fromArray(new bool[5] {1, 1, 1, 0, 0}, 5),
                                      Sort<bool>::Node::fromArray(new bool[5] {0, 0, 1, 1, 1}, 5)));
     return result;
@@ -186,6 +216,8 @@ template <>
 std::vector<std::tuple<typename Sort<Comparable>::Node*, typename Sort<Comparable>::Node*>> getLLTestCases<Comparable>()
 {
     std::vector<std::tuple<typename Sort<Comparable>::Node*, typename Sort<Comparable>::Node*>> result;
+    result.push_back(std::make_tuple(Sort<Comparable>::Node::fromArray(new Comparable[4] { Comparable(4), Comparable(3), Comparable(2), Comparable(1) }, 4),
+                                     Sort<Comparable>::Node::fromArray(new Comparable[4] { Comparable(1), Comparable(2), Comparable(3), Comparable(4) }, 4)));
     result.push_back(std::make_tuple(Sort<Comparable>::Node::fromArray(new Comparable[5] { Comparable(5), Comparable(4), Comparable(3), Comparable(2), Comparable(1) }, 5),
                                      Sort<Comparable>::Node::fromArray(new Comparable[5] { Comparable(1), Comparable(2), Comparable(3), Comparable(4), Comparable(5) }, 5)));
     return result;
