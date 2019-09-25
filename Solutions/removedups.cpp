@@ -34,17 +34,38 @@ std::vector<std::tuple<std::string, std::string>> RemoveDups::testCases() const
 
 void RemoveDups::setInput(const std::string input)
 {
-    // set input; solution.h provides methods like extractArray to assist
+    std::vector<char> a { extractArray<char>(input, display()) };
+    m_pHead = DllNode<char>::fromArray(a);
 }
 
 std::string RemoveDups::getSolution() const
 {
-    // copy members if necessary to preserve constness; solution.h provides methods like makeCopy to assist
-    return /*convert_result_to_string(removedups(args))*/ "";
+    DllNode<char>* copy { DllNode<char>::fromArray(DllNode<char>::toArray(m_pHead)) };
+    removedups(copy);
+    return arrayToString(DllNode<char>::toArray(copy));
 }
 
-DllNode<char>* removedups(DllNode<char>* pHead)
+void RemoveDups::removedups(DllNode<char>* pHead)
 {
-    // solution
+    bool ht[alphabetSize];
+    for (int i {0}; i < alphabetSize; ++i) ht[i] = false;
+
+    DllNode<char>* pNode {pHead};
+    while (pNode) {
+        if (hasValue(ht, pNode->val)) pNode = DllNode<char>::deleteNode(pNode);
+        else {
+            addValue(ht, pNode->val);
+            pNode = DllNode<char>::advance(pNode);
+        }
+    }
 }
 
+bool hasValue(bool* ht, char val)
+{
+    return ht[static_cast<int>(val)];
+}
+
+void addValue(bool* ht, char val)
+{
+    ht[static_cast<int>(val)] = true;
+}

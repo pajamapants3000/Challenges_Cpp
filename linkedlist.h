@@ -15,7 +15,11 @@ struct SllNode
     static SllNode* advance(SllNode* x);
     static SllNode* advance(SllNode* x, const std::size_t k);
     static SllNode* fromArray(const T* const a, const std::size_t N);
+    static SllNode* fromArray(const std::vector<T> a);
     static T* toArray(const SllNode* const head, std::size_t& outSize);
+    static std::vector<T> toArray(const SllNode* const head);
+    static SllNode* deleteNode(SllNode* node, SllNode* prev);
+    static void clearMem(SllNode* head);
     void clearMem();
 };
 
@@ -32,8 +36,14 @@ struct DllNode
 
     static DllNode* advance(DllNode* x);
     static DllNode* advance(DllNode* x, const std::size_t k);
+    static DllNode* backtrack(DllNode* x);
+    static DllNode* backtrack(DllNode* x, const std::size_t k);
     static DllNode* fromArray(const T* const a, const std::size_t N);
+    static DllNode* fromArray(const std::vector<T> a);
     static T* toArray(const DllNode* const head, std::size_t& outSize);
+    static std::vector<T> toArray(const DllNode* const head);
+    static DllNode* deleteNode(DllNode* node);
+    static void clearMem(DllNode* head);
     void clearMem();
 };
 

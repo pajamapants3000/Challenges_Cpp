@@ -28,6 +28,8 @@ Output: a - r - t - d - c - w
 #include "solution.h"
 #include "../linkedlist.h"
 
+const int alphabetSize {128};
+
 class RemoveDups : public Solution
 {
 public:
@@ -42,11 +44,14 @@ public:
     virtual std::string key() override { return "removedups"; }
     virtual std::string display() override { return "RemoveDups"; }
 
-    static DllNode<char>* removedups(DllNode<char>* pHead);
+    static void removedups(DllNode<char>* pHead);
 
 private:
     DllNode<char>* m_pHead;
 };
+
+bool hasValue(bool* ht, char val);
+void addValue(bool* ht, char val);
 
 #endif // REMOVEDUPS_H
 
