@@ -18,6 +18,7 @@ struct SllNode
     static SllNode* fromArray(const std::vector<T> a);
     static T* toArray(const SllNode* const head, std::size_t& outSize);
     static std::vector<T> toArray(const SllNode* const head);
+    static void partition(SllNode* lead, T part);
     static SllNode* deleteNode(SllNode* node, SllNode* prev);
     static void clearMem(SllNode* head);
     void clearMem();
@@ -42,6 +43,7 @@ struct DllNode
     static DllNode* fromArray(const std::vector<T> a);
     static T* toArray(const DllNode* const head, std::size_t& outSize);
     static std::vector<T> toArray(const DllNode* const head);
+    static void partition(DllNode* lead, T part);
     static DllNode* deleteNode(DllNode* node);
     static void clearMem(DllNode* head);
     void clearMem();

@@ -346,15 +346,15 @@ bool isLLTestCasePassing(std::tuple<typename Sort<T>::Node*, typename Sort<T>::N
 template <typename T>
 void testCasePass(T* in, T* out, size_t N)
 {
-    std::cout << setConsoleGreen << "PASS: " << unsetConsoleColor << arrayToString(in, N) << " -> " << arrayToString(out, N) << "\n";
+    std::cout << setConsoleGreen << "PASS: " << unsetConsoleColor << to_string(in, N) << " -> " << to_string(out, N) << "\n";
 }
 
 template <typename T>
 void testCaseFail(T* in, T* out, T* expected, size_t N)
 {
-    std::cout << setConsoleRed << "FAIL: " << unsetConsoleColor << arrayToString(in, N) << "\n";
-    std::cout << "    expected: " << arrayToString(expected, N) << "\n";
-    std::cout << "    actual: " << arrayToString(out, N) << "\n";
+    std::cout << setConsoleRed << "FAIL: " << unsetConsoleColor << to_string(in, N) << "\n";
+    std::cout << "    expected: " << to_string(expected, N) << "\n";
+    std::cout << "    actual: " << to_string(out, N) << "\n";
 }
 
 void ResultSummary(int count, int fail)

@@ -85,6 +85,33 @@ std::vector<T> SllNode<T>::toArray(const SllNode* const head)
     return result;
 }
 template <typename T>
+void SllNode<T>::partition(SllNode* lead, T part)
+{
+    SllNode* dummyLo { new SllNode() };
+    SllNode* dummyHi { new SllNode() };
+    SllNode* tailLo { dummyLo };
+    SllNode* tailHi { dummyHi };
+    SllNode* pNode { lead->next };
+
+    while (pNode) {
+        if (pNode->val < part) {
+            tailLo->next = pNode;
+            tailLo = pNode;
+            pNode = pNode->next;
+        } else {
+            tailHi->next = pNode;
+            tailHi = pNode;
+            pNode = pNode->next;
+        }
+    }
+
+    lead->next = dummyLo->next;
+    tailLo->next = dummyHi->next;
+    tailHi->next = nullptr;
+    delete dummyLo;
+    delete dummyHi;
+}
+template <typename T>
 SllNode<T>* SllNode<T>::deleteNode(SllNode* node, SllNode* prev)
 {
     if (!node) return nullptr;
@@ -223,6 +250,33 @@ std::vector<T> DllNode<T>::toArray(const DllNode* const head)
         ptr = ptr->next;
     }
     return result;
+}
+template <typename T>
+void DllNode<T>::partition(DllNode* lead, T part)
+{
+    DllNode* dummyLo { new DllNode() };
+    DllNode* dummyHi { new DllNode() };
+    DllNode* tailLo { dummyLo };
+    DllNode* tailHi { dummyHi };
+    DllNode* pNode { lead->next };
+
+    while (pNode) {
+        if (pNode->val < part) {
+            tailLo->next = pNode;
+            tailLo = pNode;
+            pNode = pNode->next;
+        } else {
+            tailHi->next = pNode;
+            tailHi = pNode;
+            pNode = pNode->next;
+        }
+    }
+
+    lead->next = dummyLo->next;
+    tailLo->next = dummyHi->next;
+    tailHi->next = nullptr;
+    delete dummyLo;
+    delete dummyHi;
 }
 template <typename T>
 DllNode<T>* DllNode<T>::deleteNode(DllNode* node)

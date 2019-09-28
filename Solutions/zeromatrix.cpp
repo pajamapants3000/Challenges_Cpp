@@ -38,7 +38,7 @@ std::string ZeroMatrix::getSolution() const
 {
     std::vector<std::vector<int>> a { matrixCopy<int>(m_a) };
     zeroMatrix(a);
-    return matrixToString<int>(a);
+    return to_string(a);
 }
 
 void ZeroMatrix::zeroMatrix(std::vector<std::vector<int>>& a)

@@ -20,6 +20,8 @@
 #include "zeromatrix.h"
 #include "stringrotation.h"
 #include "removedups.h"
+#include "partition.h"
+#include "sumlists.h"
 /* ******************* */
 
 SolutionFactory::SolutionFactory() {}
@@ -70,6 +72,10 @@ std::shared_ptr<Solution> SolutionFactory::getSolution(const Challenge challenge
         return std::shared_ptr<Solution>(new StringRotation());
     case Challenge::RemoveDups:
         return std::shared_ptr<Solution>(new RemoveDups());
+    case Challenge::Partition:
+        return std::shared_ptr<Solution>(new Partition());
+    case Challenge::SumLists:
+        return std::shared_ptr<Solution>(new SumLists());
     default:
         return nullptr;
     }
@@ -111,6 +117,10 @@ std::shared_ptr<Solution> SolutionFactory::getSolution(std::string input, const 
         return std::shared_ptr<Solution>(new StringRotation(input));
     case Challenge::RemoveDups:
         return std::shared_ptr<Solution>(new RemoveDups(input));
+    case Challenge::Partition:
+        return std::shared_ptr<Solution>(new Partition(input));
+    case Challenge::SumLists:
+        return std::shared_ptr<Solution>(new SumLists(input));
     default:
         return nullptr;
     }

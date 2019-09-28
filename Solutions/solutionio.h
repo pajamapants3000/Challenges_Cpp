@@ -163,6 +163,30 @@ std::string matrixToString(std::vector<std::vector<T>> a)
 }
 
 template <typename T>
+const std::string to_string(T* in, size_t N)
+{
+    return arrayToString<T>(in, N);
+}
+
+template <typename T>
+const std::string to_string(T** in, size_t N1, size_t N2)
+{
+    return matrixToString<T>(in, N1, N2);
+}
+
+template <typename T>
+const std::string to_string(std::vector<T> in)
+{
+    return arrayToString<T>(in);
+}
+
+template <typename T>
+const std::string to_string(std::vector<std::vector<T>> in)
+{
+    return matrixToString<T>(in);
+}
+
+template <typename T>
 std::vector<T> arrayCopy(const std::vector<T>& toCopy)
 {
     std::vector<T> result {};

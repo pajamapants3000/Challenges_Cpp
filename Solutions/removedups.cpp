@@ -42,7 +42,7 @@ std::string RemoveDups::getSolution() const
 {
     DllNode<char>* copy { DllNode<char>::fromArray(DllNode<char>::toArray(m_pHead)) };
     removedups(copy);
-    return arrayToString(DllNode<char>::toArray(copy));
+    return to_string(DllNode<char>::toArray(copy));
 }
 
 void RemoveDups::removedups(DllNode<char>* pHead)

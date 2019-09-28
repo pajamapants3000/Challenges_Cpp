@@ -46,6 +46,10 @@ Challenge Solution::getChallengeFromString(const std::string input)
         return Challenge::StringRotation;
     } else if (input == "removedups") {
         return Challenge::RemoveDups;
+    } else if (input == "partition") {
+        return Challenge::Partition;
+    } else if (input == "sumlists") {
+        return Challenge::SumLists;
     } else {
         return Challenge::Unspecified;
     }

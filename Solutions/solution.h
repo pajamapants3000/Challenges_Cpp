@@ -37,6 +37,8 @@ enum class Challenge
     ZeroMatrix,
     StringRotation,
     RemoveDups,
+    Partition,
+    SumLists,
     MAX_CHALENGE,
 };
 
