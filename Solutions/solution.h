@@ -39,6 +39,7 @@ enum class Challenge
     RemoveDups,
     Partition,
     SumLists,
+    Palindrome,
     MAX_CHALENGE,
 };
 

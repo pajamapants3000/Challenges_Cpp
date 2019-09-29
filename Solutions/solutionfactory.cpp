@@ -22,6 +22,7 @@
 #include "removedups.h"
 #include "partition.h"
 #include "sumlists.h"
+#include "palindrome.h"
 /* ******************* */
 
 SolutionFactory::SolutionFactory() {}
@@ -76,6 +77,8 @@ std::shared_ptr<Solution> SolutionFactory::getSolution(const Challenge challenge
         return std::shared_ptr<Solution>(new Partition());
     case Challenge::SumLists:
         return std::shared_ptr<Solution>(new SumLists());
+    case Challenge::Palindrome:
+        return std::shared_ptr<Solution>(new Palindrome());
     default:
         return nullptr;
     }
@@ -121,6 +124,8 @@ std::shared_ptr<Solution> SolutionFactory::getSolution(std::string input, const 
         return std::shared_ptr<Solution>(new Partition(input));
     case Challenge::SumLists:
         return std::shared_ptr<Solution>(new SumLists(input));
+    case Challenge::Palindrome:
+        return std::shared_ptr<Solution>(new Palindrome(input));
     default:
         return nullptr;
     }

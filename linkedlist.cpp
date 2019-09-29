@@ -15,19 +15,19 @@ SllNode<T>::SllNode(T _val, SllNode* _next) :
 {}
 
 template <typename T>
-SllNode<T>* SllNode<T>::advance(SllNode<T>* x)
+SllNode<T>* SllNode<T>::advance(const SllNode<T>* x)
 {
     return advance(x, 1);
 }
 template <typename T>
-SllNode<T>* SllNode<T>::advance(SllNode<T>* x, const size_t k)
+SllNode<T>* SllNode<T>::advance(const SllNode<T>* x, const size_t k)
 {
     size_t i {0};
     while (i<k && x) {
         x = x->next;
         ++i;
     }
-    return x;
+    return const_cast<SllNode<T>*>(x);
 }
 template <typename T>
 SllNode<T>* SllNode<T>::fromArray(const T* const a, const std::size_t N)
@@ -81,6 +81,17 @@ std::vector<T> SllNode<T>::toArray(const SllNode* const head)
     while (ptr) {
         result.push_back(ptr->val);
         ptr = ptr->next;
+    }
+    return result;
+}
+template <typename T>
+size_t SllNode<T>::getLength(const SllNode* const head)
+{
+    const SllNode* ptr {head};
+    size_t result {0};
+    while (ptr) {
+        ++result;
+        ptr = SllNode::advance(ptr);
     }
     return result;
 }
@@ -162,12 +173,12 @@ DllNode<T>::DllNode(T _val, DllNode* _prev, DllNode* _next) :
 {}
 
 template <typename T>
-DllNode<T>* DllNode<T>::advance(DllNode* x)
+DllNode<T>* DllNode<T>::advance(const DllNode* x)
 {
     return advance(x, 1);
 }
 template <typename T>
-DllNode<T>* DllNode<T>::advance(DllNode* x, const std::size_t k)
+DllNode<T>* DllNode<T>::advance(const DllNode* x, const std::size_t k)
 {
     size_t i {0};
     while (i<k && x) {
@@ -175,15 +186,15 @@ DllNode<T>* DllNode<T>::advance(DllNode* x, const std::size_t k)
         ++i;
     }
 
-    return x;
+    return const_cast<DllNode<T>*>(x);
 }
 template <typename T>
-DllNode<T>* DllNode<T>::backtrack(DllNode* x)
+DllNode<T>* DllNode<T>::backtrack(const DllNode* x)
 {
     return backtrack(x, 1);
 }
 template <typename T>
-DllNode<T>* DllNode<T>::backtrack(DllNode* x, const std::size_t k)
+DllNode<T>* DllNode<T>::backtrack(const DllNode* x, const std::size_t k)
 {
     size_t i {0};
     while (i<k && x) {
@@ -248,6 +259,17 @@ std::vector<T> DllNode<T>::toArray(const DllNode* const head)
     while (ptr) {
         result.push_back(ptr->val);
         ptr = ptr->next;
+    }
+    return result;
+}
+template <typename T>
+size_t DllNode<T>::getLength(const DllNode* const head)
+{
+    const DllNode* ptr {head};
+    size_t result {0};
+    while (ptr) {
+        ++result;
+        ptr = DllNode::advance(ptr);
     }
     return result;
 }

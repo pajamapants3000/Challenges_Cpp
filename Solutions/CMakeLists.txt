@@ -24,6 +24,7 @@ add_library(stringrotation "stringrotation.cpp")
 add_library(removedups "removedups.cpp")
 add_library(partition "partition.cpp")
 add_library(sumlists "sumlists.cpp")
+add_library(palindrome "palindrome.cpp")
 
 target_link_libraries(vowelsquare solution)
 target_link_libraries(palindromenumber solution)
@@ -43,6 +44,7 @@ target_link_libraries(stringrotation solution)
 target_link_libraries(removedups solution)
 target_link_libraries(partition solution)
 target_link_libraries(sumlists solution)
+target_link_libraries(palindrome solution)
 
 target_link_libraries(solutionfactory
     vowelsquare
@@ -63,4 +65,5 @@ target_link_libraries(solutionfactory
     removedups
     partition
     sumlists
+    palindrome
 )
