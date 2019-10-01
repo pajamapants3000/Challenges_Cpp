@@ -25,6 +25,7 @@ add_library(removedups "removedups.cpp")
 add_library(partition "partition.cpp")
 add_library(sumlists "sumlists.cpp")
 add_library(palindrome "palindrome.cpp")
+add_library(loopdetection "loopdetection.cpp")
 
 target_link_libraries(vowelsquare solution)
 target_link_libraries(palindromenumber solution)
@@ -45,6 +46,7 @@ target_link_libraries(removedups solution)
 target_link_libraries(partition solution)
 target_link_libraries(sumlists solution)
 target_link_libraries(palindrome solution)
+target_link_libraries(loopdetection solution)
 
 target_link_libraries(solutionfactory
     vowelsquare
@@ -66,4 +68,5 @@ target_link_libraries(solutionfactory
     partition
     sumlists
     palindrome
+    loopdetection
 )

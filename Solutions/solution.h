@@ -40,6 +40,7 @@ enum class Challenge
     Partition,
     SumLists,
     Palindrome,
+    LoopDetection,
     MAX_CHALENGE,
 };
 

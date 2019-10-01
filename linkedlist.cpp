@@ -96,6 +96,18 @@ size_t SllNode<T>::getLength(const SllNode* const head)
     return result;
 }
 template <typename T>
+size_t SllNode<T>::getIndex(const SllNode* const head, const SllNode* const node)
+{
+    const SllNode* pNode {head};
+    size_t result {0};
+    while (pNode && pNode != node) {
+        ++result;
+        pNode = pNode->next;
+    }
+    if (!pNode) return 0;
+    else return result;
+}
+template <typename T>
 void SllNode<T>::partition(SllNode* lead, T part)
 {
     SllNode* dummyLo { new SllNode() };
@@ -272,6 +284,18 @@ size_t DllNode<T>::getLength(const DllNode* const head)
         ptr = DllNode::advance(ptr);
     }
     return result;
+}
+template <typename T>
+size_t DllNode<T>::getIndex(const DllNode* const head, const DllNode* const node)
+{
+    const DllNode* pNode {head};
+    size_t result {0};
+    while (pNode && pNode != node) {
+        ++result;
+        pNode = pNode->next;
+    }
+    if (!pNode) return 0;
+    else return result;
 }
 template <typename T>
 void DllNode<T>::partition(DllNode* lead, T part)

@@ -23,6 +23,7 @@
 #include "partition.h"
 #include "sumlists.h"
 #include "palindrome.h"
+#include "loopdetection.h"
 /* ******************* */
 
 SolutionFactory::SolutionFactory() {}
@@ -79,6 +80,8 @@ std::shared_ptr<Solution> SolutionFactory::getSolution(const Challenge challenge
         return std::shared_ptr<Solution>(new SumLists());
     case Challenge::Palindrome:
         return std::shared_ptr<Solution>(new Palindrome());
+    case Challenge::LoopDetection:
+        return std::shared_ptr<Solution>(new LoopDetection());
     default:
         return nullptr;
     }
@@ -126,6 +129,8 @@ std::shared_ptr<Solution> SolutionFactory::getSolution(std::string input, const 
         return std::shared_ptr<Solution>(new SumLists(input));
     case Challenge::Palindrome:
         return std::shared_ptr<Solution>(new Palindrome(input));
+    case Challenge::LoopDetection:
+        return std::shared_ptr<Solution>(new LoopDetection(input));
     default:
         return nullptr;
     }
