@@ -5,6 +5,8 @@ project(Challenges_Cpp)
 link_directories(${CMAKE_CURRENT_BINARY_DIR}/Solutions)
 
 add_subdirectory(Solutions)
+add_subdirectory(Stack)
+add_subdirectory(Test)
 
 add_executable(${PROJECT_NAME} "main.cpp")
 add_executable(${PROJECT_NAME}_TEST "maintest.cpp")
