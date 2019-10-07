@@ -4,6 +4,9 @@
  *
  * NOTE: Implementation is encapsulated in StacksImpl structure.
  * Try implementing a few ways and compare test times.
+ *
+ * This is actually a really cool example of a successful pattern that produces a template from a
+ * fully encapsulated underlying implementation.
  */
 
 #ifndef STACKS_H
@@ -24,7 +27,9 @@ class StacksVoid
 {
 public:
     StacksVoid();
-    ~StacksVoid();
+    virtual ~StacksVoid();
+
+    virtual void* allocate() = 0;
 
     void pushVoid(void* newVal, StackId id);
     void* popVoid(StackId id);
@@ -32,6 +37,7 @@ public:
 
 protected:
     void** storage;
+
 private:
     struct StacksImpl;
     std::unique_ptr<StacksImpl> pimpl;
@@ -43,13 +49,24 @@ class Stacks : private StacksVoid
 public:
     Stacks()
     {
-        storage = reinterpret_cast<void**> (new T*[storageSize]);
+        storage = reinterpret_cast<void**> (new T*[storageSize * static_cast<size_t>(StackId::StackCount)]);
     }
     virtual ~Stacks(){}
 
+    T* allocate(T newVal)
+    {
+        T* newAlloc {reinterpret_cast<T*>(allocate())};
+        *newAlloc = newVal;
+    }
+
+    virtual void* allocate() override
+    {
+        return new T{};
+    }
+
     virtual void push(T newVal, StackId id)
     {
-        pushVoid( reinterpret_cast<void*>( &newVal ), id );
+        return pushVoid( allocate(newVal), id );
     }
     virtual T pop(StackId id)
     {

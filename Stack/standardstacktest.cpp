@@ -1,51 +1,64 @@
 #include <boost/test/unit_test.hpp>
 
-namespace utf = boost::unit_test;
-
 #include "standardstack.h"
 
-#include "../Test/timefixture.h"
+namespace utf = boost::unit_test;
 
 template <typename T>
-static StandardStack<T>* stack {nullptr};
-
-struct stackFixture
+struct nonEmptyStandardStackFixture
 {
-    stackFixture(StandardStack<int>* &stack_in)
+    nonEmptyStandardStackFixture()
     {
-        stack_in = new StandardStack<int>{};
+        stack = new StandardStack<T>{};
+        for (int i {0}; i < 100; ++i) {
+            stack->push(i);
+        }
     }
-    ~stackFixture()
+    ~nonEmptyStandardStackFixture()
     {
-        delete stack<int>;
+        delete stack;
     }
+
+    StandardStack<T>* stack {nullptr};
+};
+
+template <typename T>
+struct emptyStandardStackFixture
+{
+    emptyStandardStackFixture()
+    {
+        stack = new StandardStack<T>{};
+    }
+    ~emptyStandardStackFixture()
+    {
+        delete stack;
+    }
+
+    StandardStack<T>* stack {nullptr};
 };
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdisabled-macro-expansion"
 
-BOOST_FIXTURE_TEST_SUITE( standard_stack_int_outer, TimeFixture )
-BOOST_AUTO_TEST_SUITE( standard_stack_int, * utf::fixture<stackFixture>(stack<int>) )
+BOOST_AUTO_TEST_SUITE( standard_stack_int )
 
-BOOST_AUTO_TEST_CASE( initialize )
+BOOST_FIXTURE_TEST_CASE( pop_or_peek_empty, emptyStandardStackFixture<int> )
 {
-    stack<int> = new StandardStack<int>{};
-    BOOST_CHECK_THROW(stack<int>->pop(), const char*);
-    BOOST_CHECK_THROW(stack<int>->peek(), const char*);
+    BOOST_CHECK_THROW(stack->pop(), const char*);
+    BOOST_CHECK_THROW(stack->peek(), const char*);
 }
 
-BOOST_AUTO_TEST_CASE( push_and_peek, * utf::depends_on( "standard_stack_int_outer/standard_stack_int/initialize" ) )
+BOOST_FIXTURE_TEST_CASE( push_and_peek, emptyStandardStackFixture<int> )
 {
-    stack<int>->push(1);
-    BOOST_TEST(stack<int>->peek() == 1);
+    stack->push(1);
+    BOOST_TEST(stack->peek() == 1);
 }
 
-BOOST_AUTO_TEST_CASE( pop, * utf::depends_on( "standard_stack_int_outer/standard_stack_int/push_and_peek" ) )
+BOOST_FIXTURE_TEST_CASE( pop, nonEmptyStandardStackFixture<int> )
 {
-    BOOST_TEST(stack<int>->pop() == 1);
+    BOOST_TEST(stack->pop() == 99);
 }
 
-BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
 
 #pragma GCC diagnostic pop

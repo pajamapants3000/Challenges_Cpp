@@ -1,19 +1,13 @@
 #include "stacks.h"
 
-StacksVoid::StacksVoid() :
-    storage {nullptr},
-    pimpl {}
-{}
-
-StacksVoid::~StacksVoid() { delete[] storage; }
-
 struct StacksVoid::StacksImpl
 {
     StacksImpl() :
-        counters { new size_t[static_cast<int>( StackId::StackCount )] }
+        stackCount { static_cast<size_t>(StackId::StackCount) },
+        counters { new size_t[stackCount] }
     {
-        for ( int i {0}; i < static_cast<int>( StackId::StackCount ); ++i ) {
-            counters[ i ] = 0;
+        for ( size_t i {0}; i < stackCount; ++i ) {
+            counters[ i ] = i;
         }
     }
 
@@ -24,22 +18,53 @@ struct StacksVoid::StacksImpl
 
     void push(void* newVal, StackId id, void** storage)
     {
-        storage[ static_cast<int>( id ) ] = newVal;
+        size_t stackId { static_cast<size_t>(id) };
+
+        if (counters[stackId] >= storageSize*stackCount) {
+            throw "Stack is full.";
+        }
+        storage[counters[stackId]] = newVal;
+
+        // our first check ensures this will produce a result less than storageSize
+        counters[stackId] += stackCount;
     }
 
     void* pop(StackId id, void** storage)
     {
-        return storage[ static_cast<int>( id ) ];
+        size_t stackId { static_cast<size_t>(id) };
+
+        if (counters[stackId] / stackCount == 0) {
+            throw "Stack is empty.";
+        }
+
+        // our first check ensures this will produce a positive result
+        counters[stackId] -= stackCount;
+
+        return storage[ counters[stackId] ];
     }
 
     void* peek(StackId id, void** storage) const
     {
-        return storage[ static_cast<int>( id ) ];
+        size_t stackId { static_cast<size_t>(id) };
+
+        if (counters[stackId] / stackCount == 0) {
+            throw "Stack is empty.";
+        }
+
+        return storage[ counters[stackId] - stackCount];
     }
 
 private:
+    size_t stackCount;
     size_t* counters;
 };
+
+StacksVoid::StacksVoid() :
+    storage {nullptr},
+    pimpl { new StacksImpl{} }
+{}
+
+StacksVoid::~StacksVoid() { delete[] storage; }
 
 void StacksVoid::pushVoid(void* newVal, StackId id)
 {
@@ -53,5 +78,5 @@ void* StacksVoid::popVoid(StackId id)
 
 void* StacksVoid::peekVoid(StackId id) const
 {
-    return pimpl->peek( id, this->storage );
+    return pimpl->peek(id, this->storage);
 }

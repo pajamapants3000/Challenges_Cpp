@@ -5,9 +5,9 @@ project(Stack)
 link_directories(${CMAKE_CURRENT_BINARY_DIR}/..)
 
 add_executable(${PROJECT_NAME}_TEST "stacktest.cpp"
-    "standardstacktest.cpp"
     "multistacktest.cpp"
     "threeinonestacktest.cpp"
+    "standardstacktest.cpp"
 )
 add_library(stacks "stacks.cpp")
 

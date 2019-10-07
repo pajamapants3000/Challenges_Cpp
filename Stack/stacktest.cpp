@@ -2,8 +2,6 @@
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
-#include "../Test/timefixture.h"
-
 /*
  * Tests:
  * Setup - for each test, build a stack of many values
@@ -16,17 +14,7 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdisabled-macro-expansion"
-BOOST_FIXTURE_TEST_SUITE( stack_test_suite, TimeFixture )
-
-BOOST_AUTO_TEST_CASE( autopass )
-{
-    BOOST_TEST( true );
-}
-
-BOOST_AUTO_TEST_CASE( autofail )
-{
-    BOOST_TEST( false );
-}
+BOOST_AUTO_TEST_SUITE( stack_test_suite )
 
 BOOST_AUTO_TEST_SUITE_END()
 
